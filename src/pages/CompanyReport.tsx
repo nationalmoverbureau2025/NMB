@@ -16,10 +16,13 @@ import { Lawsuits } from '../components/Lawsuits';
 import { ReviewRating } from '../components/ReviewRating';
 import { AIFlags } from '../components/AIFlags';
 import { RedFlags } from '../components/RedFlags';
+import { Button } from '../components/Button';
+import { generateReportPDF } from '../lib/pdf';
 
 export function CompanyReport() {
   const { currentReport, loading, error } = useReport();
   const isReportPending = currentReport?.status === 'in_progress';
+  const isReportError = currentReport?.status === 'canceled';
 
   if (loading) {
     return (
@@ -48,6 +51,19 @@ export function CompanyReport() {
         id={currentReport?.id}
         created_at={currentReport?.created_at}
       />
+
+      <div className="container mx-auto px-4 pt-6 md:pt-8">
+        <div className="max-w-5xl mx-auto flex justify-end">
+          <Button onClick={() => generateReportPDF(currentReport)}>Download PDF</Button>
+        </div></div>
+
+      {isReportError ? <div className="bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Error</h2>
+          <p className="text-gray-600">{'Error during report generation. Credits will be refunded to you balance.'}</p>
+        </div>
+      </div> : null}
 
       <div className="container mx-auto px-4 py-6 md:py-8">
         <div className="max-w-5xl mx-auto space-y-8">

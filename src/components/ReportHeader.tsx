@@ -1,13 +1,13 @@
 import { BadgeCheck, Clock, Scale, Shield } from 'lucide-react';
 
 type Props = {
-  id: number;
+  id: string;
   created_at: string;
 };
 
 export const ReportHeader = ({ id, created_at }: Props) => (
   <div className="bg-gradient-to-b from-blue-900 to-blue-800 text-white py-6 md:py-8 border-b border-blue-700">
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 max-w-5xl">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="bg-white p-2 rounded-lg">
@@ -25,7 +25,7 @@ export const ReportHeader = ({ id, created_at }: Props) => (
         <div className="w-full md:w-auto">
           <div className="text-sm text-blue-200">Report ID</div>
           <div className="font-mono bg-blue-800 px-4 py-2 rounded-lg text-sm md:text-base w-full md:w-auto text-center md:text-left">
-            {id}
+            {id?.split('-')[0]}
           </div>
         </div>
       </div>

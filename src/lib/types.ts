@@ -9,7 +9,7 @@ export interface CompanyNew {
 }
 
 export interface ICompanyReport {
-  id: number;
+  id: string;
   user_id: string;
   credits_remaining: number;
   bundle_size: number;
