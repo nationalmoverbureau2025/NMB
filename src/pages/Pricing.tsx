@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Check,
   FileText,
@@ -7,14 +7,13 @@ import {
   Shield,
   Star,
   UserCheck,
-  Infinity,
-  ArrowLeftRight,
-} from 'lucide-react';
-import { Button } from '../components/Button';
-import { CheckoutButton } from '../components/CheckoutButton';
-import { products } from '../lib/stripe';
-import { useAuth } from '../context/AuthContext';
-import { supabase } from '../lib/supabase';
+  FilesIcon,
+} from 'lucide-react'
+import { Button } from '../components/Button'
+import { CheckoutButton } from '../components/CheckoutButton'
+import { products } from '../lib/stripe'
+import { useAuth } from '../context/AuthContext'
+import { supabase } from '../lib/supabase'
 
 const primaryPlans = [
   {
@@ -34,14 +33,14 @@ const primaryPlans = [
     ],
     priceId: products.bundle3Reports.id,
   },
-];
+]
 
 const secondaryPlans = [
   {
     name: '1 additional report',
     price: 45,
     description: 'Single company discovery',
-    popular: true,
+    popular: false,
     features: [
       'Full company background check',
       'AI-powered risk analysis',
@@ -54,11 +53,11 @@ const secondaryPlans = [
     ],
     priceId: products.singleReport.id,
   },
-];
+]
 
 export function Pricing() {
-  const { isAuthenticated, user } = useAuth();
-  const [isOldUser, setIsOldUser] = useState(false);
+  const { isAuthenticated, user } = useAuth()
+  const [isOldUser, setIsOldUser] = useState(false)
 
   const fetchUserData = async (userId) => {
     try {
@@ -66,31 +65,31 @@ export function Pricing() {
         .from('customer_credits')
         .select('*')
         .eq('user_id', userId)
-        .single();
+        .single()
 
       if (error) {
-        console.error('Error fetching user credits:', error);
-        return false;
+        console.error('Error fetching user credits:', error)
+        return false
       }
 
-      return !!data;
+      return !!data
     } catch (error) {
-      console.error('Failed to fetch user credits:', error);
-      return false;
+      console.error('Failed to fetch user credits:', error)
+      return false
     }
-  };
+  }
 
   useEffect(() => {
     if (isAuthenticated && user) {
       const getUserData = async () => {
-        const userData = await fetchUserData(user.id);
+        const userData = await fetchUserData(user.id)
 
-        setIsOldUser(!!userData);
-      };
+        setIsOldUser(!!userData)
+      }
 
-      getUserData();
+      getUserData()
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user])
 
   return (
     <div className="bg-gray-50 py-16">
@@ -205,10 +204,10 @@ export function Pricing() {
 
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  {plan.name === 'Single Report' ? (
-                    <FileText className="w-6 h-6 text-blue-600" />
+                  {plan.priceId === 'price_three_reports' ? (
+                    <FilesIcon className="w-6 h-6 text-blue-600" />
                   ) : (
-                    <Infinity className="w-6 h-6 text-blue-600" />
+                    <FileText className="w-6 h-6 text-blue-600" />
                   )}
                   <div>
                     <h3 className="text-xl font-bold text-gray-900">
@@ -223,17 +222,9 @@ export function Pricing() {
                     <span className="text-4xl font-bold text-gray-900">
                       ${plan.price}
                     </span>
-                    {plan.name === 'Unlimited Monthly' && (
-                      <span className="text-gray-600 ml-2">/month</span>
-                    )}
                   </div>
-                  {plan.name === 'Single Report' ? (
-                    <p className="text-sm text-gray-500 mt-1">
-                      One-time payment
-                    </p>
-                  ) : (
-                    <p className="text-sm text-gray-500 mt-1">Cancel anytime</p>
-                  )}
+
+                  <p className="text-sm text-gray-500 mt-1">One-time payment</p>
                 </div>
 
                 <div className="space-y-4 mb-6">
@@ -334,5 +325,5 @@ export function Pricing() {
         </div>
       </div>
     </div>
-  );
+  )
 }

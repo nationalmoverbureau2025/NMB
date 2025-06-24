@@ -15,10 +15,10 @@ export const ReportHeader = ({ id, created_at }: Props) => (
           </div>
           <div className="flex-1 md:flex-auto">
             <h1 className="text-xl md:text-3xl font-bold leading-tight">
-              Official National mover Bureau Report
+              Official National Mover Bureau Report
             </h1>
             <p className="text-sm md:text-base text-blue-200">
-              National mover bureau Verification System
+              National Mover bureau Verification System
             </p>
           </div>
         </div>

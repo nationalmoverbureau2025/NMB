@@ -194,10 +194,22 @@ export async function generateReportPDF(reportData: ICompanyReport) {
   y += 8;
   doc.setFontSize(10);
   if (reportData.lawsuits.length > 0) {
-    for (const l of reportData.lawsuits) {
+    for (const lawsuit of reportData.lawsuits) {
+      checkPageOverflow(12);
+      doc.text(`- ${lawsuit.title} (${lawsuit.status})`, 22, y);
+      y += 5;
       checkPageOverflow(6);
-      doc.text(`- ${l}`, 22, y);
+      doc.text(`  ${lawsuit.date} • ${lawsuit.court}`, 22, y);
+      y += 5;
+      
+      // Handle summary text - might need wrapping for longer texts
+      const summaryText = lawsuit.summary || '';
+      checkPageOverflow(6);
+      doc.text(`  Summary: ${summaryText}`, 22, y);
       y += 6;
+      
+      // Add a little spacing between lawsuits
+      y += 2;
     }
   } else {
     checkPageOverflow(6);
