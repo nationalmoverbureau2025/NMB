@@ -53,7 +53,16 @@ export function CompanyReport() {
       />
 
       <div className="container mx-auto px-4 pt-6 md:pt-8">
-        <div className="max-w-5xl mx-auto flex justify-end">
+        <div className="max-w-5xl mx-auto flex justify-between items-center gap-6">
+          {currentReport?.status === 'in_progress' ? (
+            <div className="bg-blue-50 p-6 rounded-lg grow">
+              <span className="text-blue-800 ">
+                Report processing usually takes around 10 minutes
+              </span>
+            </div>
+          ) : (
+            <div></div>
+          )}
           <Button onClick={() => generateReportPDF(currentReport)}>
             Download PDF
           </Button>

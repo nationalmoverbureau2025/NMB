@@ -14,10 +14,9 @@ export const CompliantCounts = ({
     {complaint_counts?.length > 0 ? (
       <div className="grid md:grid-cols-3 gap-4">
         {complaint_counts.map((complaint, index) => (
-          <div key={index} className="p-4 bg-gray-50 rounded-lg text-center">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <AlertCircle
-                className={`w-5 h-5 text-${
+          <div key={index} className="p-4 pt-6 bg-gray-50 rounded-lg text-center relative">
+            <AlertCircle
+                className={`absolute top-2 left-2 w-5 h-5 text-${
                   complaint.count < 2
                     ? 'green'
                     : complaint.count < 4
@@ -25,6 +24,8 @@ export const CompliantCounts = ({
                     : 'red'
                 }-600`}
               />
+            <div className="flex items-center justify-center gap-2 mb-2">
+              
               <h4 className="font-medium text-gray-900">{complaint.source}</h4>
             </div>
             <div

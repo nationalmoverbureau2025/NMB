@@ -192,15 +192,13 @@ export function Pricing() {
           {(isOldUser ? secondaryPlans : primaryPlans).map((plan) => (
             <div
               key={plan.name}
-              className={`bg-white rounded-lg shadow-md overflow-hidden ${
-                plan.popular ? 'ring-2 ring-blue-600' : ''
-              }`}
+              className={`bg-white rounded-lg shadow-md overflow-hidden
+                'ring-2 ring-blue-600'
+              `}
             >
-              {plan.popular && (
-                <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
-                  Most Popular • Includes Company Comparison
-                </div>
-              )}
+              <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
+                Most Popular • Includes Company Comparison
+              </div>
 
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">

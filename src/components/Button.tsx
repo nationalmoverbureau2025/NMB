@@ -22,9 +22,9 @@ export function Button({
           'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-600': variant === 'primary',
           'bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-500': variant === 'secondary',
           'border border-gray-200 bg-white hover:bg-gray-100 focus-visible:ring-gray-500': variant === 'outline',
-          'h-8 px-3 text-sm': size === 'sm',
-          'h-10 px-4': size === 'md',
-          'h-12 px-6 text-lg': size === 'lg',
+          'min-h-8 px-3 text-sm py-1': size === 'sm',
+          'min-h-10 px-4 py-2': size === 'md',
+          'min-h-12 px-6 text-lg py-3': size === 'lg',
           'w-full': fullWidth,
         },
         className

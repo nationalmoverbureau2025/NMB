@@ -151,7 +151,7 @@ export const CompanyOverview = ({
                 AI Risk Assessment
               </h4>
               <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                className={`px-3 py-1 rounded-full text-sm font-medium text-center ${
                   ai_credibility_score >= 70
                     ? 'bg-green-100 text-green-600'
                     : ai_credibility_score >= 40

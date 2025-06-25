@@ -28,7 +28,7 @@ export const AuthorityStatus = ({
               </div>
             </div>
             <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
+              className={`px-3 py-1 rounded-full text-sm font-medium text-center ${
                 status.status === 'active'
                   ? 'bg-green-100 text-green-800'
                   : 'bg-red-100 text-red-800'
