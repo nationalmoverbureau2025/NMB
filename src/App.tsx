@@ -1,34 +1,35 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { Home } from './pages/Home';
-import { Login } from './pages/Login';
-import { Signup } from './pages/Signup';
-import { Dashboard } from './pages/Dashboard';
-import { Pricing } from './pages/Pricing';
-import { Search } from './pages/Search';
-import { Contact } from './pages/Contact';
-import { Privacy } from './pages/Privacy';
-import { Terms } from './pages/Terms';
-import { Disclaimer } from './pages/Disclaimer';
-import { Regulations } from './pages/Regulations';
-import { License } from './pages/License';
-import { CheckoutSuccess } from './pages/CheckoutSuccess';
-import { AuthCallback } from './pages/AuthCallback';
-import { ForgotPassword } from './pages/ForgotPassword';
-import { ForgotUsername } from './pages/ForgotUsername';
-import { ResetPassword } from './pages/ResetPassword';
-import { AuthProvider } from './context/AuthContext';
-import { queryClient } from './lib/query';
-import { useScrollToTop } from './hooks/useScrollToTop';
-import { CompanyReport } from './pages/CompanyReport';
-import { ReportsList } from './pages/ReportsList';
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { Header } from './components/Header'
+import { Footer } from './components/Footer'
+import { Home } from './pages/Home'
+import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
+import { Dashboard } from './pages/Dashboard'
+import { Pricing } from './pages/Pricing'
+import { Search } from './pages/Search'
+import { Contact } from './pages/Contact'
+import { Privacy } from './pages/Privacy'
+import { Terms } from './pages/Terms'
+import { Disclaimer } from './pages/Disclaimer'
+import { Regulations } from './pages/Regulations'
+import { License } from './pages/License'
+import { CheckoutSuccess } from './pages/CheckoutSuccess'
+import { AuthCallback } from './pages/AuthCallback'
+import { ForgotPassword } from './pages/ForgotPassword'
+import { ForgotUsername } from './pages/ForgotUsername'
+import { ResetPassword } from './pages/ResetPassword'
+import { AuthProvider } from './context/AuthContext'
+import { queryClient } from './lib/query'
+import { useScrollToTop } from './hooks/useScrollToTop'
+import { CompanyReport } from './pages/CompanyReport'
+import { ReportsList } from './pages/ReportsList'
+import {IntercomChat} from './components/IntercomChat'
 
 function ScrollToTop() {
-  useScrollToTop();
-  return null;
+  useScrollToTop()
+  return null
 }
 
 function App() {
@@ -61,13 +62,14 @@ function App() {
                 <Route path="/checkout/success" element={<CheckoutSuccess />} />
                 <Route path="/auth/callback" element={<AuthCallback />} />
               </Routes>
+              <IntercomChat />
             </main>
             <Footer />
           </div>
         </Router>
       </AuthProvider>
     </QueryClientProvider>
-  );
+  )
 }
 
-export default App;
+export default App
