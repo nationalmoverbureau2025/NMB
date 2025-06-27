@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import {
   Check,
   FileText,
@@ -15,11 +16,32 @@ import { products } from '../lib/stripe'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 
+const freePlans = [
+  {
+    name: '1 free report',
+    price: 0,
+    description: 'Single company discovery',
+    popular: false,
+    features: [
+      'Full company background check',
+      'AI-powered risk analysis',
+      'Broker identification check',
+      'Fake review detection',
+      'Complaint history review',
+      'Downloadable PDF report',
+      'Valid for 30 days',
+      'Email support',
+      'Free first report for user',
+    ],
+    priceId: null,
+  },
+]
+
 const primaryPlans = [
   {
-    name: '3 reports bundle',
-    price: 99,
-    description: 'Easy start',
+    name: '1 month subscription',
+    price: 89,
+    description: 'Full access',
     popular: true,
     features: [
       'Full company background check',
@@ -31,7 +53,7 @@ const primaryPlans = [
       'Valid for 30 days',
       'Email support',
     ],
-    priceId: products.bundle3Reports.id,
+    priceId: products.monthlySubscription.id,
   },
 ]
 
@@ -58,6 +80,7 @@ const secondaryPlans = [
 export function Pricing() {
   const { isAuthenticated, user } = useAuth()
   const [isOldUser, setIsOldUser] = useState(false)
+  const navigate = useNavigate()
 
   const fetchUserData = async (userId) => {
     try {
@@ -90,6 +113,30 @@ export function Pricing() {
       getUserData()
     }
   }, [isAuthenticated, user])
+
+  const processFreeReport = async () => {
+    if (!isAuthenticated) {
+      navigate('/signup')
+    }
+    try {
+      const { error } = await supabase
+        .from('customer_credits')
+        .insert({
+          user_id: user.id,
+          credits_remaining: 1,
+          purchase_date: new Date().toISOString(),
+        })
+        .select()
+
+      if (error) {
+        throw error
+      }
+
+      navigate('/search')
+    } catch (error) {
+      console.error('Error processing free report:', error)
+    }
+  }
 
   return (
     <div className="bg-gray-50 py-16">
@@ -189,16 +236,18 @@ export function Pricing() {
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto w-full md:w-[50%]">
-          {(isOldUser ? secondaryPlans : primaryPlans).map((plan) => (
+          {(isOldUser ? primaryPlans : freePlans).map((plan) => (
             <div
               key={plan.name}
               className={`bg-white rounded-lg shadow-md overflow-hidden
-                'ring-2 ring-blue-600'
+                ${plan.popular ? 'ring-2 ring-blue-600' : ''}
               `}
             >
-              <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
-                Most Popular • Includes Company Comparison
-              </div>
+              {plan.popular ? (
+                <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
+                  Most Popular • Includes Company Comparison
+                </div>
+              ) : null}
 
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -222,7 +271,9 @@ export function Pricing() {
                     </span>
                   </div>
 
-                  <p className="text-sm text-gray-500 mt-1">One-time payment</p>
+                  <p className="text-sm text-gray-500 mt-1">
+                    {plan.description}
+                  </p>
                 </div>
 
                 <div className="space-y-4 mb-6">
@@ -234,16 +285,22 @@ export function Pricing() {
                   ))}
                 </div>
 
-                <CheckoutButton
-                  priceId={plan.priceId}
-                  className={
-                    plan.popular
-                      ? 'w-full'
-                      : 'w-full bg-white text-blue-900 border-blue-900 hover:bg-blue-50'
-                  }
-                >
-                  Get Started
-                </CheckoutButton>
+                {plan.priceId ? (
+                  <CheckoutButton
+                    priceId={plan.priceId}
+                    className={
+                      plan.popular
+                        ? 'w-full'
+                        : 'w-full bg-white text-blue-900 border-blue-900 hover:bg-blue-50'
+                    }
+                  >
+                    Get Started
+                  </CheckoutButton>
+                ) : (
+                  <Button className="w-full" onClick={processFreeReport}>
+                    Get free report
+                  </Button>
+                )}
               </div>
             </div>
           ))}

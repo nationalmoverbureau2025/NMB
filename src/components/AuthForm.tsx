@@ -1,126 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { AlertCircle } from 'lucide-react';
-import { Button } from './Button';
-import { SocialAuth } from './SocialAuth';
-import { useAuth } from '../context/AuthContext';
-import { isSupabaseConfigured } from '../lib/supabase';
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { AlertCircle } from 'lucide-react'
+import { Button } from './Button'
+import { SocialAuth } from './SocialAuth'
+import { useAuth } from '../context/AuthContext'
+import { isSupabaseConfigured } from '../lib/supabase'
 
 interface AuthFormProps {
-  mode: 'login' | 'signup';
+  mode: 'login' | 'signup'
 }
 
 export function AuthForm({ mode }: AuthFormProps) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { login, signup, isAuthenticated } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { login, signup, isAuthenticated } = useAuth()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   // Check for redirect parameter
-  const searchParams = new URLSearchParams(location.search);
-  const redirectPath = searchParams.get('redirect');
+  const searchParams = new URLSearchParams(location.search)
+  const redirectPath = searchParams.get('redirect')
 
   useEffect(() => {
     // Reset error when mode changes
-    setError(null);
-  }, [mode]);
+    setError(null)
+  }, [mode])
 
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       if (redirectPath === 'checkout') {
-        const savedPriceId = localStorage.getItem('checkoutPriceId');
+        const savedPriceId = localStorage.getItem('checkoutPriceId')
         if (savedPriceId) {
-          navigate('/pricing');
-          return;
+          navigate('/pricing')
+          return
         }
       }
       if (redirectPath === 'search') {
-        const companyDot = searchParams.get('companyDot');
-        navigate(`/search?companyDot=${companyDot}`);
-        return;
+        const companyDot = searchParams.get('companyDot')
+        navigate(`/search?companyDot=${companyDot}`)
+        return
       }
-      navigate('/dashboard');
+      navigate('/dashboard')
     }
-  }, [isAuthenticated, navigate, redirectPath]);
+  }, [isAuthenticated, navigate, redirectPath])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
     if (!isSupabaseConfigured()) {
       setError(
         'Authentication is not configured. Please connect to Supabase first.'
-      );
-      return;
+      )
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
 
     try {
       if (mode === 'signup') {
-        const { error: signupError } = await signup(email, password);
+        const { error: signupError, data } = await signup(email, password)
 
         if (signupError) {
           if (signupError.message?.includes('already registered')) {
             setError(
               'An account with this email already exists. Please log in instead.'
-            );
+            )
           } else {
-            setError(signupError.message || 'An error occurred during signup');
+            setError(signupError.message || 'An error occurred during signup')
           }
         } else {
-          // Handle redirect after successful signup
-          if (redirectPath === 'checkout') {
-            const savedPriceId = localStorage.getItem('checkoutPriceId');
-            if (savedPriceId) {
-              navigate('/pricing');
-              return;
-            }
-          }
-          if (redirectPath === 'search') {
-            const companyDot = searchParams.get('companyDot');
-            navigate(`/search?companyDot=${companyDot}`);
-            return;
-          }
-          navigate('/dashboard');
+          setSuccess(
+            'Account created successfully! Please visit your email to verify'
+          )
+          // // Handle redirect after successful signup
+          // if (redirectPath === 'checkout') {
+          //   const savedPriceId = localStorage.getItem('checkoutPriceId');
+          //   if (savedPriceId) {
+          //     navigate('/pricing');
+          //     return;
+          //   }
+          // }
+          // if (redirectPath === 'search') {
+          //   const companyDot = searchParams.get('companyDot');
+          //   navigate(`/search?companyDot=${companyDot}`);
+          //   return;
+          // }
+          // navigate('/dashboard');
         }
       } else {
-        const { error: loginError } = await login(email, password);
+        const { error: loginError } = await login(email, password)
 
         if (loginError) {
           if (loginError.message?.includes('Invalid login credentials')) {
-            setError('Invalid email or password. Please try again.');
+            setError('Invalid email or password. Please try again.')
           } else {
-            setError(loginError.message || 'An error occurred during login');
+            setError(loginError.message || 'An error occurred during login')
           }
         } else {
           // Handle redirect after successful login
           if (redirectPath === 'checkout') {
-            const savedPriceId = localStorage.getItem('checkoutPriceId');
+            const savedPriceId = localStorage.getItem('checkoutPriceId')
             if (savedPriceId) {
-              navigate('/pricing');
-              return;
+              navigate('/pricing')
+              return
             }
           }
           if (redirectPath === 'search') {
-            const companyDot = searchParams.get('companyDot');
-            navigate(`/search?companyDot=${companyDot}`);
-            return;
+            const companyDot = searchParams.get('companyDot')
+            navigate(`/search?companyDot=${companyDot}`)
+            return
           }
-          navigate('/dashboard');
+          navigate('/dashboard')
         }
       }
     } catch (err) {
-      console.error('Authentication error:', err);
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Authentication error:', err)
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   if (!isSupabaseConfigured()) {
     return (
@@ -136,7 +140,7 @@ export function AuthForm({ mode }: AuthFormProps) {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -149,6 +153,12 @@ export function AuthForm({ mode }: AuthFormProps) {
         <div className="mb-4 p-4 bg-red-50 text-red-600 rounded-md flex items-center gap-2">
           <AlertCircle className="w-5 h-5" />
           <span>{error}</span>
+        </div>
+      )}
+      {success && (
+        <div className="mb-4 p-4 bg-green-50 text-green-600 rounded-md flex items-center gap-2">
+          <AlertCircle className="w-5 h-5" />
+          <span>{success}</span>
         </div>
       )}
 
@@ -194,5 +204,5 @@ export function AuthForm({ mode }: AuthFormProps) {
         </Button>
       </form>
     </div>
-  );
+  )
 }

@@ -29,6 +29,16 @@ const PRICE_LOOKUP = {
     type: 'refresh_report',
     description: 'Refresh your report',
   },
+  price_monthly_subscription: {
+    type: 'price_monthly_subscription',
+    name: 'Monthly Subscription',
+    price: 8900,
+    description: 'Monthly access to unlimited reports',
+    recurring: {
+      interval: 'month',
+      interval_count: 1,
+    },
+  },
 };
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -81,6 +91,7 @@ serve(async (req) => {
             description: priceDetails.description,
           },
           unit_amount: priceDetails.price,
+          ...(priceDetails.recurring ? { recurring: priceDetails.recurring } : {}),
         },
         quantity: 1,
       },
@@ -127,7 +138,7 @@ serve(async (req) => {
       customer: stripeCustomerId,
       payment_method_types: ['card'],
       line_items: lineItems,
-      mode: 'payment',
+      mode: priceDetails.recurring ? 'subscription' : 'payment',
       success_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}${
         companyDot ? `&companyDot=${companyDot}` : ''
       }`,

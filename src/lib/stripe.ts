@@ -26,6 +26,16 @@ export const products = {
     price: 2000, // in cents
     description: 'Refresh your report',
   },
+  monthlySubscription: {
+    id: 'price_monthly_subscription',
+    name: 'Monthly Subscription',
+    price: 8900, // in cents
+    description: 'Monthly access to unlimited reports',
+    recurring: {
+      interval: 'month',
+      interval_count: 1,
+    },
+  },
 }
 
 // Create a checkout session

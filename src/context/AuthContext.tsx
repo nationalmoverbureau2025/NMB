@@ -137,7 +137,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { error };
       }
       
-      return { error: null };
+      return { error: null, data };
     } catch (error) {
       console.error('Signup error:', error);
       return { error };
