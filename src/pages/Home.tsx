@@ -124,7 +124,7 @@ export function Home() {
             </Link>
             <Link to="/signup">
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Create Free Account
+                Get you free report
               </Button>
             </Link>
           </div>
