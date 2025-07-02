@@ -88,9 +88,9 @@ export const ReviewRating = ({
             <div className="space-y-2">
               {Object.entries(currentReport?.star_breakdown).map(
                 ([stars, count]) => (
-                  <div key={stars} className="flex items-center gap-3">
+                  <div key={stars} className="flex items-center gap-3 w-full justify-between">
                     <span className="w-8 text-sm">{stars}★</span>
-                    <div className="flex-1 bg-gray-200 rounded-full h-3">
+                    <div className=" bg-gray-200 rounded-full h-3 w-full">
                       <div
                         className="bg-yellow-400 h-3 rounded-full"
                         style={{

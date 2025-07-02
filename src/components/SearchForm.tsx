@@ -70,7 +70,7 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
             Company Name
           </button>
         </div>
-         
+
         <div className="flex-1 flex flex-col lg:flex-row gap-4">
           {/* Search Input */}
           <div className="flex-1 relative">

@@ -35,11 +35,11 @@ export const CompanyOverview = ({
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="flex-1">
+              <div className="">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   {displayValueOrLoader(
                     currentReport?.companies_perfsol.company_name,
@@ -71,15 +71,15 @@ export const CompanyOverview = ({
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors overflow-hidden">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center min-w-10">
                 <Truck className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex-1">
+              <div className="max-w-full overflow-hidden">
                 <div className="text-sm font-medium text-gray-500">
                   DOT Number
                 </div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {displayValueOrLoader(
                     currentReport?.companies_perfsol.dot_number,
                     isReportPending
@@ -88,15 +88,15 @@ export const CompanyOverview = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors overflow-hidden">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center min-w-10">
                 <Hash className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex-1">
+              <div className="max-w-full overflow-hidden">
                 <div className="text-sm font-medium text-gray-500">
                   MC Number
                 </div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {displayValueOrLoader(
                     currentReport?.companies_perfsol.mc_number,
                     isReportPending
@@ -105,13 +105,13 @@ export const CompanyOverview = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors overflow-hidden">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center min-w-10">
                 <Home className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex-1">
+              <div className=" max-w-full">
                 <div className="text-sm font-medium text-gray-500">Address</div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900 overflow-hidden text-ellipsis">
                   {displayValueOrLoader(
                     currentReport?.address,
                     isReportPending
@@ -120,37 +120,37 @@ export const CompanyOverview = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors overflow-hidden">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center min-w-10">
                 <Phone className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex-1">
+              <div className="max-w-full overflow-hidden">
                 <div className="text-sm font-medium text-gray-500">Phone</div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {displayValueOrLoader(currentReport?.phone, isReportPending)}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors overflow-hidden">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center min-w-10">
                 <Mail className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex-1">
+              <div className="max-w-full overflow-hidden">
                 <div className="text-sm font-medium text-gray-500">Email</div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {displayValueOrLoader(currentReport?.email, isReportPending)}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors overflow-hidden">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center min-w-10">
                 <Globe className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex-1">
+              <div className="max-w-full overflow-hidden">
                 <div className="text-sm font-medium text-gray-500">Website</div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {currentReport?.website ? (
                     <a
                       href={currentReport?.website}
@@ -169,15 +169,15 @@ export const CompanyOverview = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors overflow-hidden">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center min-w-10">
                 <Calendar className="w-5 h-5 text-blue-600" />
               </div>
-              <div className="flex-1">
+              <div className="max-w-full overflow-hidden">
                 <div className="text-sm font-medium text-gray-500">
                   Years in Business
                 </div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {displayValueOrLoader(
                     currentReport?.years_in_business,
                     isReportPending
@@ -201,7 +201,7 @@ export const CompanyOverview = ({
                 </p>
               </div>
               <span
-                className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold text-center ${
                   ai_credibility_score >= 70
                     ? 'bg-green-100 text-green-700 border border-green-200'
                     : ai_credibility_score >= 40

@@ -148,9 +148,9 @@ const currentReport: ICompanyReport = {
     '5': 91,
   },
   sentiment_breakdown: {
-    neutral: 55,
-    negative: 310,
-    positive: 91,
+    neutral: 10,
+    negative: 75,
+    positive: 15,
   },
   review_timeline: [
     {
