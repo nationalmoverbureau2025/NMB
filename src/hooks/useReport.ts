@@ -42,11 +42,11 @@ export const useReport = () => {
         { event: 'UPDATE', schema: 'public', table: 'reports_perfsol' },
         (payload) => {
           console.log('payload', payload)
-          console.log('eq', payload.new.id === currentReport?.id)
+          console.log('eq', payload.new.id === id)
           console.log('p', payload.new.id)
-          console.log('c', currentReport?.id)
+          console.log('c', id)
 
-          if (payload.new.id === currentReport?.id) {
+          if (payload.new.id === id) {
             console.log('equal')
             setCurrentReport((prev) => {
               console.log(
