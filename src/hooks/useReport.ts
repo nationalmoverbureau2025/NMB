@@ -39,6 +39,7 @@ export const useReport = () => {
         'postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'reports_perfsol' },
         (payload) => {
+          console.log('payload', payload)
           if (payload.new.id === currentReport?.id) {
             setCurrentReport((prev) => ({
               ...prev,
@@ -47,7 +48,10 @@ export const useReport = () => {
           }
         }
       )
-      .subscribe()
+      .subscribe((status) => {
+        console.log('Subscription status:', status) // Add this for debugging
+      })
+    
 
     return () => {
       subscription.unsubscribe()
