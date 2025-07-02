@@ -42,7 +42,12 @@ export const useReport = () => {
         { event: 'UPDATE', schema: 'public', table: 'reports_perfsol' },
         (payload) => {
           console.log('payload', payload)
+          console.log('eq', payload.new.id === currentReport?.id)
+          console.log('p', payload.new.id)
+          console.log('c', currentReport?.id)
+
           if (payload.new.id === currentReport?.id) {
+            console.log('equal')
             setCurrentReport((prev) => {
               console.log(
                 'Report updated:',
@@ -63,7 +68,6 @@ export const useReport = () => {
       .subscribe((status) => {
         console.log('Subscription status:', status) // Add this for debugging
       })
-    
 
     return () => {
       subscription.unsubscribe()
