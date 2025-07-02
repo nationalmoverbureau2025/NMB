@@ -25,6 +25,7 @@ export const CompanyOverview = ({
   const isReportPending = currentReport?.status === 'in_progress'
   const isBroker =
     currentReport?.companies_perfsol.company_type?.toLowerCase() === 'broker'
+  console.log('currentReport', currentReport)
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">

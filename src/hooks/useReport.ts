@@ -11,6 +11,8 @@ export const useReport = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  console.log('currentReport main', currentReport)
+
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
@@ -41,10 +43,20 @@ export const useReport = () => {
         (payload) => {
           console.log('payload', payload)
           if (payload.new.id === currentReport?.id) {
-            setCurrentReport((prev) => ({
-              ...prev,
-              ...(payload.new as ICompanyReport),
-            }))
+            setCurrentReport((prev) => {
+              console.log(
+                'Report updated:',
+                {
+                  ...prev,
+                  ...(payload.new as ICompanyReport),
+                }?.years_in_business
+              )
+
+              return {
+                ...prev,
+                ...(payload.new as ICompanyReport),
+              }
+            })
           }
         }
       )
