@@ -1,4 +1,4 @@
-import { InlineSpinner } from '../components/InlineSpinner';
+import { InlineSpinner } from '../components/InlineSpinner'
 
 export const displayValueOrLoader = (
   value: string | number | null | undefined,
@@ -10,4 +10,4 @@ export const displayValueOrLoader = (
     <InlineSpinner />
   ) : (
     'N/A'
-  );
+  )

@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { CreditCard, Loader } from 'lucide-react';
-import { Button } from './Button';
-import { createCheckoutSession } from '../lib/stripe';
-import { useAuth } from '../context/AuthContext';
+import React, { useState } from 'react'
+import { CreditCard, Loader } from 'lucide-react'
+import { Button } from './Button'
+import { createCheckoutSession } from '../lib/stripe'
+import { useAuth } from '../context/AuthContext'
 
 interface CheckoutButtonProps {
-  companyDot: number;
+  companyDot: number
 }
 
 export function RefreshPaymentButton({ companyDot }: CheckoutButtonProps) {
-  const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const [loading, setLoading] = useState(false)
+  const { user } = useAuth()
 
   const handleCheckout = async (e) => {
-    e.stopPropagation();
-    setLoading(true);
+    e.stopPropagation()
+    setLoading(true)
 
     try {
       // Create checkout session
@@ -22,21 +22,21 @@ export function RefreshPaymentButton({ companyDot }: CheckoutButtonProps) {
         'refresh_report',
         user.id,
         companyDot
-      );
+      )
 
       // Redirect to Stripe Checkout
       if (url) {
-        window.location.href = url;
+        window.location.href = url
       } else {
-        throw new Error('Failed to create checkout session');
+        throw new Error('Failed to create checkout session')
       }
     } catch (error) {
-      console.error('Checkout error:', error);
-      alert('There was an error processing your checkout. Please try again.');
+      console.error('Checkout error:', error)
+      alert('There was an error processing your checkout. Please try again.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <Button
@@ -58,5 +58,5 @@ export function RefreshPaymentButton({ companyDot }: CheckoutButtonProps) {
         </>
       )}
     </Button>
-  );
+  )
 }

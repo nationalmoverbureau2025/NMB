@@ -1,42 +1,41 @@
-import React from 'react';
-import { Apple } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { Button } from './Button';
+import React from 'react'
+import { useAuth } from '../context/AuthContext'
+import { Button } from './Button'
 
 interface SocialAuthProps {
-  mode: 'login' | 'signup';
-  onError: (message: string) => void;
-  setLoading: (loading: boolean) => void;
+  mode: 'login' | 'signup'
+  onError: (message: string) => void
+  setLoading: (loading: boolean) => void
 }
 
 export function SocialAuth({ mode, onError, setLoading }: SocialAuthProps) {
-  const { loginWithSocial } = useAuth();
+  const { loginWithSocial } = useAuth()
 
   const handleSocialAuth = async (provider: 'google' | 'apple') => {
     try {
-      setLoading(true);
+      setLoading(true)
 
-      const { error, url } = await loginWithSocial(provider);
+      const { error, url } = await loginWithSocial(provider)
 
       if (error) {
-        throw error;
+        throw error
       }
 
       // If we get here without an error, we should have a URL to redirect to
       if (url) {
-        window.location.href = url;
+        window.location.href = url
       }
     } catch (err) {
-      console.error(`${provider} auth error:`, err);
+      console.error(`${provider} auth error:`, err)
       onError(
         err instanceof Error
           ? err.message
           : `Failed to sign in with ${provider}`
-      );
+      )
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="space-y-3">
@@ -95,5 +94,5 @@ export function SocialAuth({ mode, onError, setLoading }: SocialAuthProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

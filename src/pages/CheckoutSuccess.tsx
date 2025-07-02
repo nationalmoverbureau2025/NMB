@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { CheckCircle, FileText, ArrowRight } from 'lucide-react'
 import { Button } from '../components/Button'
 import { supabase } from '../lib/supabase'
+import { useAuth } from '../context/AuthContext'
 
 export function CheckoutSuccess() {
   const [searchParams] = useSearchParams()

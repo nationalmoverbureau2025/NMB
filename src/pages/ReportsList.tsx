@@ -1,45 +1,43 @@
-import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import {
   FileText,
   AlertTriangle,
   Search,
   User,
-  CreditCard,
   LogOut,
-  RefreshCw,
-Calendar,
-Clock,
-} from 'lucide-react';
-import { Button } from '../components/Button';
-import { useDashboard } from '../hooks/useDashboard';
-import { RefreshPaymentButton } from '../components/RefreshPaymentButton';
+  Calendar,
+  Clock,
+} from 'lucide-react'
+import { Button } from '../components/Button'
+import { useDashboard } from '../hooks/useDashboard'
+import { RefreshPaymentButton } from '../components/RefreshPaymentButton'
 
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
-  });
-};
+  })
+}
 
 export function ReportsList() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const { isLoading, logout, userData, isAuthenticated, userReports } =
-    useDashboard();
+    useDashboard()
 
   const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-  };
+    await logout()
+    navigate('/login')
+  }
 
   const handleViewReport = (reportId: number) => {
-    navigate(`/report/${reportId}`);
-  };
+    navigate(`/report/${reportId}`)
+  }
 
   const isExpired = (expiresAt: string) => {
-    return new Date(expiresAt) < new Date();
-  };
+    return new Date(expiresAt) < new Date()
+  }
 
   if (isLoading) {
     return (
@@ -49,11 +47,11 @@ export function ReportsList() {
           <p className="mt-4 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
-    );
+    )
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace />
   }
 
   return (
@@ -165,13 +163,13 @@ export function ReportsList() {
                   {report.expires_at && isExpired(report.expires_at) ? (
                     <RefreshPaymentButton
                       companyDot={report?.companies_perfsol?.dot_number}
-                     />
+                    />
                   ) : (
                     <Button
                       size="sm"
                       onClick={(e) => {
-                        e.stopPropagation();
-                        handleViewReport(report.id);
+                        e.stopPropagation()
+                        handleViewReport(report.id)
                       }}
                     >
                       View Report
@@ -194,5 +192,5 @@ export function ReportsList() {
         )}
       </div>
     </div>
-  );
+  )
 }

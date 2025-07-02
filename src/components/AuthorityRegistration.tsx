@@ -1,13 +1,13 @@
-import { FileText } from 'lucide-react';
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { FileText } from 'lucide-react'
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const AuthorityRegistration = ({
   authority_registration_dates,
   isReportPending,
 }: {
-  authority_registration_dates: ICompanyReport['authority_registration_dates'];
-  isReportPending: boolean;
+  authority_registration_dates: ICompanyReport['authority_registration_dates']
+  isReportPending: boolean
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
     <h2 className="text-xl font-bold text-gray-900 mb-6">
@@ -38,4 +38,4 @@ export const AuthorityRegistration = ({
       <p className="text-gray-600">No authority registration data available</p>
     )}
   </div>
-);
+)

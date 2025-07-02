@@ -1,33 +1,45 @@
-import React, { useState } from 'react';
-import { Shield, AlertTriangle, FileCheck, Download, Building2, Star, CheckCircle, XCircle, Clock, DollarSign, Scale, AlertOctagon, BadgeCheck, Gauge, MapPin, Phone, Mail, User, Award, Hash, Home, Warehouse, AlertCircle, Calendar, FileWarning, Lock, Globe } from 'lucide-react';
-import { Button } from './Button';
+import React, { useState } from 'react'
+import {
+  Shield,
+  AlertTriangle,
+  FileCheck,
+  Download,
+  Star,
+  CheckCircle,
+  XCircle,
+  BadgeCheck,
+  Award,
+} from 'lucide-react'
+import { Button } from './Button'
 
 interface ReportViewerProps {
-  report: any;
-  onDownload?: () => void;
+  report: any
+  onDownload?: () => void
 }
 
 function RiskMeter({ score }: { score: number }) {
-  const percentage = (score / 10) * 100;
+  const percentage = (score / 10) * 100
   const getColor = () => {
-    if (score >= 7) return 'text-red-700';
-    if (score >= 4) return 'text-yellow-700';
-    return 'text-green-700';
-  };
+    if (score >= 7) return 'text-red-700'
+    if (score >= 4) return 'text-yellow-700'
+    return 'text-green-700'
+  }
   const getBgColor = () => {
-    if (score >= 7) return 'bg-red-100';
-    if (score >= 4) return 'bg-yellow-100';
-    return 'bg-green-100';
-  };
-  
+    if (score >= 7) return 'bg-red-100'
+    if (score >= 4) return 'bg-yellow-100'
+    return 'bg-green-100'
+  }
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-semibold text-gray-900">Risk Assessment Level</span>
+        <span className="text-sm font-semibold text-gray-900">
+          Risk Assessment Level
+        </span>
         <span className={`text-sm font-bold ${getColor()}`}>{score}/10</span>
       </div>
       <div className="h-4 bg-gray-100 rounded border">
-        <div 
+        <div
           className={`h-full ${getBgColor()} transition-all duration-500`}
           style={{ width: `${percentage}%` }}
         />
@@ -38,7 +50,7 @@ function RiskMeter({ score }: { score: number }) {
         <span>High Risk</span>
       </div>
     </div>
-  );
+  )
 }
 
 function StarRating({ rating }: { rating: number }) {
@@ -56,23 +68,25 @@ function StarRating({ rating }: { rating: number }) {
           }`}
         />
       ))}
-      <span className="ml-2 text-sm font-medium text-gray-900">{rating.toFixed(1)}</span>
+      <span className="ml-2 text-sm font-medium text-gray-900">
+        {rating.toFixed(1)}
+      </span>
     </div>
-  );
+  )
 }
 
 export function ReportViewer({ report, onDownload }: ReportViewerProps) {
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeSection, setActiveSection] = useState('overview')
 
-  if (!report) return null;
+  if (!report) return null
 
   const sections = [
     { id: 'overview', name: 'Executive Summary', icon: Shield },
     { id: 'verification', name: 'Licensing & Insurance', icon: FileCheck },
     { id: 'risk', name: 'Risk Assessment', icon: AlertTriangle },
     { id: 'compliance', name: 'Compliance Record', icon: BadgeCheck },
-    { id: 'reviews', name: 'Customer Reviews', icon: Star }
-  ];
+    { id: 'reviews', name: 'Customer Reviews', icon: Star },
+  ]
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -84,7 +98,9 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
               <Shield className="w-12 h-12" />
               <div>
                 <h1 className="text-2xl font-bold">NATIONAL MOVER BUREAU</h1>
-                <div className="text-blue-200">Official Moving Company Verification Report</div>
+                <div className="text-blue-200">
+                  Official Moving Company Verification Report
+                </div>
               </div>
             </div>
             {onDownload && (
@@ -97,7 +113,7 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
               </Button>
             )}
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <div className="text-sm text-blue-200 mb-1">Company Name</div>
@@ -116,9 +132,13 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
             <div className="text-right">
               <div className="inline-block bg-blue-800 rounded px-4 py-3">
                 <div className="text-sm text-blue-200">Report ID</div>
-                <div className="font-mono">{report.id?.slice(0, 8).toUpperCase()}</div>
+                <div className="font-mono">
+                  {report.id?.slice(0, 8).toUpperCase()}
+                </div>
                 <div className="text-sm text-blue-200 mt-2">Generated</div>
-                <div className="font-mono">{new Date(report.created_at).toLocaleDateString()}</div>
+                <div className="font-mono">
+                  {new Date(report.created_at).toLocaleDateString()}
+                </div>
               </div>
             </div>
           </div>
@@ -130,10 +150,16 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
         <div className="container mx-auto px-6 py-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div>
-              <div className="text-sm text-gray-500 font-medium">Operating Status</div>
-              <div className={`flex items-center gap-2 mt-1 ${
-                report.operating_status === 'Active' ? 'text-green-700' : 'text-red-700'
-              }`}>
+              <div className="text-sm text-gray-500 font-medium">
+                Operating Status
+              </div>
+              <div
+                className={`flex items-center gap-2 mt-1 ${
+                  report.operating_status === 'Active'
+                    ? 'text-green-700'
+                    : 'text-red-700'
+                }`}
+              >
                 {report.operating_status === 'Active' ? (
                   <CheckCircle className="w-5 h-5" />
                 ) : (
@@ -143,21 +169,33 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
               </div>
             </div>
             <div>
-              <div className="text-sm text-gray-500 font-medium">Risk Level</div>
-              <div className={`flex items-center gap-2 mt-1 ${
-                report.risk_score >= 7 ? 'text-red-700' :
-                report.risk_score >= 4 ? 'text-yellow-700' :
-                'text-green-700'
-              }`}>
+              <div className="text-sm text-gray-500 font-medium">
+                Risk Level
+              </div>
+              <div
+                className={`flex items-center gap-2 mt-1 ${
+                  report.risk_score >= 7
+                    ? 'text-red-700'
+                    : report.risk_score >= 4
+                    ? 'text-yellow-700'
+                    : 'text-green-700'
+                }`}
+              >
                 <AlertTriangle className="w-5 h-5" />
                 <span className="font-semibold">{report.risk_score}/10</span>
               </div>
             </div>
             <div>
-              <div className="text-sm text-gray-500 font-medium">Insurance Status</div>
-              <div className={`flex items-center gap-2 mt-1 ${
-                report.insurance_status === 'Active' ? 'text-green-700' : 'text-red-700'
-              }`}>
+              <div className="text-sm text-gray-500 font-medium">
+                Insurance Status
+              </div>
+              <div
+                className={`flex items-center gap-2 mt-1 ${
+                  report.insurance_status === 'Active'
+                    ? 'text-green-700'
+                    : 'text-red-700'
+                }`}
+              >
                 {report.insurance_status === 'Active' ? (
                   <CheckCircle className="w-5 h-5" />
                 ) : (
@@ -167,10 +205,14 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
               </div>
             </div>
             <div>
-              <div className="text-sm text-gray-500 font-medium">Safety Rating</div>
+              <div className="text-sm text-gray-500 font-medium">
+                Safety Rating
+              </div>
               <div className="flex items-center gap-2 mt-1 text-gray-900">
                 <Award className="w-5 h-5" />
-                <span className="font-semibold">{report.safety_rating || 'Not Rated'}</span>
+                <span className="font-semibold">
+                  {report.safety_rating || 'Not Rated'}
+                </span>
               </div>
             </div>
           </div>
@@ -186,7 +228,9 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
               <div>
                 <div className="font-semibold">HIGH RISK ALERT</div>
                 <div className="text-sm mt-1">
-                  This company has been flagged for multiple serious risk factors. Review the complete report carefully before proceeding.
+                  This company has been flagged for multiple serious risk
+                  factors. Review the complete report carefully before
+                  proceeding.
                 </div>
               </div>
             </div>
@@ -231,19 +275,21 @@ export function ReportViewer({ report, onDownload }: ReportViewerProps) {
               <Shield className="w-6 h-6" />
               <div className="text-sm">
                 <div className="font-semibold">NATIONAL MOVER BUREAU</div>
-                <div className="text-gray-400">Official Moving Company Verification System</div>
+                <div className="text-gray-400">
+                  Official Moving Company Verification System
+                </div>
               </div>
             </div>
             <div className="text-sm text-gray-400">
-              Report ID: {report.id?.slice(0, 8).toUpperCase()} • 
-              Generated: {new Date(report.created_at).toLocaleDateString()} • 
-              Last Updated: {new Date(report.updated_at).toLocaleDateString()}
+              Report ID: {report.id?.slice(0, 8).toUpperCase()} • Generated:{' '}
+              {new Date(report.created_at).toLocaleDateString()} • Last Updated:{' '}
+              {new Date(report.updated_at).toLocaleDateString()}
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function renderSectionContent(section: string, report: any) {

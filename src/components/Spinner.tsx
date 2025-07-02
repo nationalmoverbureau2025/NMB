@@ -5,4 +5,4 @@ export const Spinner = ({ text }: { text?: string }) => (
       <p className="mt-4 text-gray-600">Loading comprehensive report...</p>
     ) : null}
   </div>
-);
+)

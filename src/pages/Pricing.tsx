@@ -4,11 +4,17 @@ import { useNavigate } from 'react-router'
 import {
   Check,
   FileText,
-  Search,
   Shield,
   Star,
-  UserCheck,
-  FilesIcon,
+  AlertTriangle,
+  Scale,
+  Eye,
+  Brain,
+  Lock,
+  Truck,
+  CreditCard,
+  CheckCircle,
+  Award,
 } from 'lucide-react'
 import { Button } from '../components/Button'
 import { CheckoutButton } from '../components/CheckoutButton'
@@ -24,36 +30,52 @@ const freePlans = [
     popular: false,
     features: [
       'Full company background check',
-      'AI-powered risk analysis',
-      'Broker identification check',
-      'Fake review detection',
-      'Complaint history review',
+      'Authority Registration verification',
+      'Authority Status confirmation',
+      'Insurance Coverage analysis',
+      'Authorized Cargo Types review',
+      'Legal History investigation',
+      'Customer Reviews Analysis',
+      'AI Suspicious Activity Flags',
+      'Red Flags Analysis',
+      'Advanced fake review detection',
       'Downloadable PDF report',
       'Valid for 30 days',
       'Email support',
       'Free first report for user',
     ],
     priceId: null,
+    buttonText: 'Get Your Free Report', // Explicitly set button text
   },
 ]
 
 const primaryPlans = [
   {
-    name: '1 month subscription',
+    name: 'Unlimited Reports',
     price: 89,
-    description: 'Full access',
+    description: '30-Day Access',
+    subtitle: 'One-time payment',
     popular: true,
     features: [
       'Full company background check',
-      'AI-powered risk analysis',
-      'Broker identification check',
-      'Fake review detection',
-      'Complaint history review',
+      'Authority Registration verification',
+      'Authority Status confirmation',
+      'Insurance Coverage analysis',
+      'Authorized Cargo Types review',
+      'Legal History investigation',
+      'Customer Reviews Analysis',
+      'AI Suspicious Activity Flags',
+      'Red Flags Analysis',
+      'Advanced fake review detection with AI',
+      'Review authenticity scoring',
+      'Sentiment analysis & manipulation detection',
+      'Cross-platform review verification',
       'Downloadable PDF report',
       'Valid for 30 days',
-      'Email support',
+      'Priority email support',
     ],
     priceId: products.monthlySubscription.id,
+    buttonText: 'Check Your Mover Now',
   },
 ]
 
@@ -65,15 +87,21 @@ const secondaryPlans = [
     popular: false,
     features: [
       'Full company background check',
-      'AI-powered risk analysis',
-      'Broker identification check',
-      'Fake review detection',
-      'Complaint history review',
+      'Authority Registration verification',
+      'Authority Status confirmation',
+      'Insurance Coverage analysis',
+      'Authorized Cargo Types review',
+      'Legal History investigation',
+      'Customer Reviews Analysis',
+      'AI Suspicious Activity Flags',
+      'Red Flags Analysis',
+      'Advanced fake review detection',
       'Downloadable PDF report',
       'Valid for 30 days',
       'Email support',
     ],
     priceId: products.singleReport.id,
+    buttonText: 'Check Your Mover Now',
   },
 ]
 
@@ -138,6 +166,16 @@ export function Pricing() {
     }
   }
 
+  const isHighlightFeature = (feature) => {
+    return (
+      feature.includes('fake review') ||
+      feature.includes('AI Suspicious') ||
+      feature.includes('authenticity') ||
+      feature.includes('manipulation') ||
+      feature.includes('Red Flags')
+    )
+  }
+
   return (
     <div className="bg-gray-50 py-16">
       <div className="container mx-auto px-4">
@@ -148,162 +186,317 @@ export function Pricing() {
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Get instant access to comprehensive moving company reports with
-            AI-powered fraud detection.
+            AI-powered fraud detection and advanced fake review analysis.
           </p>
         </div>
-
-        {/* Comparison Feature Highlight */}
-        {/* <div className="max-w-4xl mx-auto mb-16 bg-blue-50 rounded-xl p-8 border border-blue-100">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-shrink-0">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                <ArrowLeftRight className="w-8 h-8 text-blue-600" />
-              </div>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-blue-900 mb-2">
-                New: Advanced Company Comparison
-              </h2>
-              <p className="text-lg text-blue-800 mb-4">
-                Compare multiple moving companies side by side with our new
-                comparison tool. Available exclusively with the Unlimited
-                Monthly plan.
-              </p>
-              <ul className="grid md:grid-cols-2 gap-4">
-                <li className="flex items-center gap-2 text-blue-700">
-                  <Check className="w-5 h-5 text-blue-600" />
-                  <span>Side-by-side price comparison</span>
-                </li>
-                <li className="flex items-center gap-2 text-blue-700">
-                  <Check className="w-5 h-5 text-blue-600" />
-                  <span>Risk score analysis</span>
-                </li>
-                <li className="flex items-center gap-2 text-blue-700">
-                  <Check className="w-5 h-5 text-blue-600" />
-                  <span>Service area overlap</span>
-                </li>
-                <li className="flex items-center gap-2 text-blue-700">
-                  <Check className="w-5 h-5 text-blue-600" />
-                  <span>Customer satisfaction metrics</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
 
         {/* Feature Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
           <div className="bg-white p-6 rounded-lg shadow-sm text-center">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Brain className="w-6 h-6 text-blue-600" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">
+              AI Fake Review Detection
+            </h3>
+            <p className="text-gray-600">
+              Advanced AI analysis to identify manipulated and fake reviews
+              across all platforms.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Shield className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">Scam Detection</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              Authority Verification
+            </h3>
             <p className="text-gray-600">
-              AI-powered analysis to detect potential fraud and red flags.
+              Complete verification of operating authority, registration, and
+              status.
             </p>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-sm text-center">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <UserCheck className="w-6 h-6 text-blue-600" />
+              <Scale className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">Broker Detection</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              Legal History Analysis
+            </h3>
             <p className="text-gray-600">
-              Identify undisclosed brokers and verify direct carriers.
+              Comprehensive review of lawsuits, complaints, and legal
+              proceedings.
             </p>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-sm text-center">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Star className="w-6 h-6 text-blue-600" />
+              <AlertTriangle className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">Review Analysis</h3>
+            <h3 className="text-lg font-semibold mb-2">Red Flags Detection</h3>
             <p className="text-gray-600">
-              Advanced AI detection of fake and manipulated reviews.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Easy Comparison</h3>
-            <p className="text-gray-600">
-              Compare multiple companies side by side with our tools.
+              AI-powered identification of suspicious patterns and warning
+              signs.
             </p>
           </div>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto w-full md:w-[50%]">
-          {(isOldUser ? primaryPlans : freePlans).map((plan) => (
-            <div
-              key={plan.name}
-              className={`bg-white rounded-lg shadow-md overflow-hidden
-                ${plan.popular ? 'ring-2 ring-blue-600' : ''}
-              `}
-            >
-              {plan.popular ? (
-                <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
-                  Most Popular • Includes Company Comparison
-                </div>
-              ) : null}
+        <div className="flex justify-center mb-8">
+          <div className="w-full max-w-md">
+            {(isOldUser ? primaryPlans : freePlans).map((plan) => (
+              <div
+                key={plan.name}
+                className={`bg-white rounded-lg shadow-md overflow-hidden
+                  ${plan.popular ? 'ring-2 ring-blue-600' : ''}
+                `}
+              >
+                {plan.popular && (
+                  <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
+                    Most Popular
+                  </div>
+                )}
 
-              <div className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  {plan.priceId === 'price_three_reports' ? (
-                    <FilesIcon className="w-6 h-6 text-blue-600" />
-                  ) : (
-                    <FileText className="w-6 h-6 text-blue-600" />
-                  )}
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">
+                <div className="p-6">
+                  {/* Tagline at the top */}
+                  <div className="text-center mb-6">
+                    <p className="text-gray-600 text-sm mb-4">
+                      Most people compare 3 to 6 different moving companies.
+                    </p>
+
+                    {/* Plan name and description */}
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
                       {plan.name}
                     </h3>
-                    <p className="text-gray-600">{plan.description}</p>
-                  </div>
-                </div>
+                    <p className="text-gray-600 mb-4">{plan.description}</p>
 
-                <div className="mt-4 mb-6">
-                  <div className="flex items-baseline">
-                    <span className="text-4xl font-bold text-gray-900">
-                      ${plan.price}
-                    </span>
-                  </div>
+                    {/* Price and payment info */}
+                    <div className="mb-4">
+                      <div className="text-4xl font-bold text-gray-900 mb-1">
+                        ${plan.price}
+                      </div>
+                      <p className="text-gray-500 text-sm mb-2">
+                        {plan.subtitle || 'One-time payment'}
+                      </p>
 
-                  <p className="text-sm text-gray-500 mt-1">
-                    {plan.description}
-                  </p>
-                </div>
-
-                <div className="space-y-4 mb-6">
-                  {plan.features.map((feature) => (
-                    <div key={feature} className="flex items-start">
-                      <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
-                      <span className="text-gray-600">{feature}</span>
+                      {/* Trust line */}
+                      <div className="flex items-center justify-center text-xs text-gray-400 gap-1">
+                        <span>🔒</span>
+                        <span>Secure Checkout | No recurring charges</span>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                {plan.priceId ? (
-                  <CheckoutButton
-                    priceId={plan.priceId}
-                    className={
-                      plan.popular
-                        ? 'w-full'
-                        : 'w-full bg-white text-blue-900 border-blue-900 hover:bg-blue-50'
-                    }
-                  >
-                    Get Started
-                  </CheckoutButton>
-                ) : (
-                  <Button className="w-full" onClick={processFreeReport}>
-                    Get free report
-                  </Button>
-                )}
+                  <div className="space-y-2 mb-6">
+                    {plan.features.map((feature) => (
+                      <div key={feature} className="flex items-start">
+                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                        <span
+                          className={`text-sm text-gray-600 ${
+                            isHighlightFeature(feature) ? 'font-semibold' : ''
+                          }`}
+                        >
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {plan.priceId ? (
+                    <CheckoutButton
+                      priceId={plan.priceId}
+                      className={
+                        plan.popular
+                          ? 'w-full'
+                          : 'w-full bg-white text-blue-900 border-blue-900 hover:bg-blue-50'
+                      }
+                    >
+                      {plan.buttonText}
+                    </CheckoutButton>
+                  ) : (
+                    <Button className="w-full" onClick={processFreeReport}>
+                      {plan.buttonText}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Trust Badges Section */}
+        <div className="flex justify-center mb-16">
+          <div className="bg-white rounded-lg shadow-sm p-6 max-w-2xl w-full">
+            <div className="text-center mb-4">
+              <p className="text-sm text-gray-500 font-medium">
+                Trusted by thousands of customers
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
+              {/* SSL Security Badge */}
+              <div className="flex flex-col items-center text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-2">
+                  <Lock className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="text-xs text-gray-600">
+                  <div className="font-semibold">SSL Secured</div>
+                  <div>256-bit encryption</div>
+                </div>
+              </div>
+
+              {/* Payment Security Badge */}
+              <div className="flex flex-col items-center text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                  <CreditCard className="w-6 h-6 text-blue-600" />
+                </div>
+                <div className="text-xs text-gray-600">
+                  <div className="font-semibold">Secure Payments</div>
+                  <div>Stripe protected</div>
+                </div>
+              </div>
+
+              {/* Money Back Guarantee */}
+              <div className="flex flex-col items-center text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-2">
+                  <CheckCircle className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="text-xs text-gray-600">
+                  <div className="font-semibold">Money Back</div>
+                  <div>7-day guarantee</div>
+                </div>
+              </div>
+
+              {/* Verified Reports Badge */}
+              <div className="flex flex-col items-center text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-2">
+                  <Award className="w-6 h-6 text-purple-600" />
+                </div>
+                <div className="text-xs text-gray-600">
+                  <div className="font-semibold">Verified Reports</div>
+                  <div>Official data sources</div>
+                </div>
               </div>
             </div>
-          ))}
+          </div>
+        </div>
+
+        {/* Comprehensive Analysis Features */}
+        <div className="mt-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Complete Moving Company Analysis
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <FileText className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">
+                  Authority Registration
+                </h3>
+              </div>
+              <p className="text-gray-600">
+                Verify FMCSA registration dates, operating authority types, and
+                compliance history.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Shield className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">Authority Status</h3>
+              </div>
+              <p className="text-gray-600">
+                Real-time verification of current operating status and authority
+                validity.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Lock className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">Insurance Coverage</h3>
+              </div>
+              <p className="text-gray-600">
+                Comprehensive insurance verification including cargo and
+                liability coverage.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Truck className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">
+                  Authorized Cargo Types
+                </h3>
+              </div>
+              <p className="text-gray-600">
+                Detailed breakdown of authorized cargo types and service
+                limitations.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Scale className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">Legal History</h3>
+              </div>
+              <p className="text-gray-600">
+                Complete legal background including lawsuits, settlements, and
+                court records.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Star className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">
+                  Customer Reviews Analysis
+                </h3>
+              </div>
+              <p className="text-gray-600">
+                AI-powered analysis of customer reviews with authenticity
+                verification.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Brain className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">
+                  AI Suspicious Activity Flags
+                </h3>
+              </div>
+              <p className="text-gray-600">
+                Advanced AI detection of suspicious patterns and potential fraud
+                indicators.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <AlertTriangle className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">Red Flags Analysis</h3>
+              </div>
+              <p className="text-gray-600">
+                Comprehensive red flag identification including broker
+                misrepresentation and violations.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Eye className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-semibold">
+                  Advanced Fake Review Detection
+                </h3>
+              </div>
+              <p className="text-gray-600">
+                Industry-leading AI technology to identify manipulated reviews,
+                fake ratings, and review farms with 94% accuracy.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* FAQ Section */}
@@ -314,20 +507,31 @@ export function Pricing() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div>
               <h3 className="text-lg font-semibold mb-2">
-                What's included in each report?
+                What's the accuracy of your fake review detection?
               </h3>
               <p className="text-gray-600">
-                Each report includes broker verification, licensing checks,
-                complaint history, safety records, review authenticity analysis,
-                and AI-powered risk assessment.
+                Our AI-powered fake review detection system has a 94% accuracy
+                rate, analyzing linguistic patterns, reviewer behavior, timing
+                anomalies, and cross-platform verification to identify
+                manipulated reviews.
               </p>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2">
-                How does the comparison feature work?
+                What's included in each report?
               </h3>
               <p className="text-gray-600">
-                With the Unlimited Monthly plan, you can compare multiple
+                Each report includes authority verification, insurance coverage
+                analysis, legal history, complaint records, AI-powered review
+                analysis, red flag detection, and comprehensive risk assessment.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">
+                What does the comparison feature include?
+              </h3>
+              <p className="text-gray-600">
+                With the Unlimited Reports plan, you can compare multiple
                 companies side by side, analyzing their risk scores, pricing,
                 service areas, and customer satisfaction metrics in a
                 comprehensive view.
@@ -338,7 +542,7 @@ export function Pricing() {
                 Can I cancel my subscription?
               </h3>
               <p className="text-gray-600">
-                Yes, you can cancel your Unlimited Monthly subscription at any
+                Yes, you can cancel your Unlimited Reports subscription at any
                 time. Your access will continue until the end of your billing
                 period.
               </p>
@@ -352,6 +556,17 @@ export function Pricing() {
                 with your report, contact us within 7 days for a full refund.
               </p>
             </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">
+                What makes your analysis different?
+              </h3>
+              <p className="text-gray-600">
+                We're the only service that combines official government data
+                with advanced AI analysis to detect fake reviews, identify
+                broker misrepresentation, and provide comprehensive risk
+                assessment.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -361,7 +576,8 @@ export function Pricing() {
             <h2 className="text-2xl font-bold mb-4">Don't Risk Your Move</h2>
             <p className="text-xl text-blue-100 mb-6">
               For less than 1% of your moving budget, get complete peace of mind
-              with our comprehensive verification system.
+              with our comprehensive verification system and industry-leading
+              fake review detection.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/search">

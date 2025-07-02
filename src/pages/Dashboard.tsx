@@ -1,5 +1,5 @@
-import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import {
   FileText,
   AlertTriangle,
@@ -10,36 +10,36 @@ import {
   Calendar,
   Clock,
   RefreshCw,
-} from 'lucide-react';
-import { Button } from '../components/Button';
-import { useDashboard } from '../hooks/useDashboard';
-import { RefreshPaymentButton } from '../components/RefreshPaymentButton';
+} from 'lucide-react'
+import { Button } from '../components/Button'
+import { useDashboard } from '../hooks/useDashboard'
+import { RefreshPaymentButton } from '../components/RefreshPaymentButton'
 
 export function Dashboard() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const { isLoading, logout, userData, isAuthenticated, userReports } =
-    useDashboard();
+    useDashboard()
 
   const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-  };
+    await logout()
+    navigate('/login')
+  }
 
   const isExpired = (expiresAt: string) => {
-    return new Date(expiresAt) < new Date();
-  };
+    return new Date(expiresAt) < new Date()
+  }
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-    });
-  };
+    })
+  }
 
   const handleViewReport = (reportId: number) => {
-    navigate(`/report/${reportId}`);
-  };
+    navigate(`/report/${reportId}`)
+  }
 
   if (isLoading) {
     return (
@@ -49,11 +49,11 @@ export function Dashboard() {
           <p className="mt-4 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
-    );
+    )
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace />
   }
 
   return (
@@ -210,8 +210,8 @@ export function Dashboard() {
                     <Button
                       size="sm"
                       onClick={(e) => {
-                        e.stopPropagation();
-                        handleViewReport(report.id);
+                        e.stopPropagation()
+                        handleViewReport(report.id)
                       }}
                     >
                       View Report
@@ -267,5 +267,5 @@ export function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { Lock } from 'lucide-react';
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { Lock } from 'lucide-react'
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const Insurance = ({
   insurance,
   isReportPending,
 }: {
-  insurance: ICompanyReport['insurance'];
-  isReportPending: boolean;
+  insurance: ICompanyReport['insurance']
+  isReportPending: boolean
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
     <h2 className="text-xl font-bold text-gray-900 mb-6">Insurance Coverage</h2>
@@ -26,7 +26,9 @@ export const Insurance = ({
                 <span className="text-gray-600">Status</span>
                 <span
                   className={`font-medium capitalize ${
-                    ins.status === 'Active' ? 'text-green-600' : 'text-red-600'
+                    ins.status?.toLowerCase() === 'active'
+                      ? 'text-green-600'
+                      : 'text-red-600'
                   }`}
                 >
                   {ins.status}
@@ -48,4 +50,4 @@ export const Insurance = ({
       <p className="text-gray-600">No insurance information available</p>
     )}
   </div>
-);
+)

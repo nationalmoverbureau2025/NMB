@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-import { CompanyNew, ICompanyReport } from '../lib/types';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
+import { CompanyNew, ICompanyReport } from '../lib/types'
 
 export const useCompanyProfile = () => {
-  const { id } = useParams<{ id: string }>();
-  const [company, setCompany] = useState<CompanyNew | null>(null);
-  const [reviews, setReviews] = useState<ICompanyReport[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { id } = useParams<{ id: string }>()
+  const [company, setCompany] = useState<CompanyNew | null>(null)
+  const [reviews, setReviews] = useState<ICompanyReport[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -17,29 +17,29 @@ export const useCompanyProfile = () => {
           .from('companies_perfsol')
           .select('*')
           .eq('dot_number', id)
-          .single<CompanyNew>();
+          .single<CompanyNew>()
 
-        if (companyError) throw companyError;
+        if (companyError) throw companyError
 
         const { data: reviewsData, error: reviewsError } = await supabase
           .from('reports_perfsol')
           .select('*')
           .eq('company_id', companyData.id)
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
 
-        if (reviewsError) throw reviewsError;
+        if (reviewsError) throw reviewsError
 
-        companyData && setCompany(companyData);
-        setReviews(reviewsData || []);
+        companyData && setCompany(companyData)
+        setReviews(reviewsData || [])
       } catch (err) {
-        setError('Failed to load company data');
-        console.error('Error:', err);
+        setError('Failed to load company data')
+        console.error('Error:', err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchCompanyData();
+    fetchCompanyData()
 
     const subscription = supabase
       .channel('custom-update-channel')
@@ -47,17 +47,17 @@ export const useCompanyProfile = () => {
         'postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'companies_perfsol' },
         (payload: { new: CompanyNew }) => {
-          setCompany(payload.new);
+          setCompany(payload.new)
         }
       )
-      .subscribe();
+      .subscribe()
 
     return () => {
-      subscription.unsubscribe();
-    };
-  }, [id]);
+      subscription.unsubscribe()
+    }
+  }, [id])
 
-  const currentReview = reviews?.[0];
+  const currentReview = reviews?.[0]
 
-  return { company, currentReview, loading, error };
-};
+  return { company, currentReview, loading, error }
+}

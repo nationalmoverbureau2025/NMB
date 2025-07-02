@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-import { ICompanyReport } from '../lib/types';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
+import { ICompanyReport } from '../lib/types'
 
 export const useReport = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>()
   const [currentReport, setCurrentReport] = useState<ICompanyReport | null>(
     null
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  )
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -18,20 +18,20 @@ export const useReport = () => {
           .from('reports_perfsol')
           .select('* , companies_perfsol ( * )')
           .eq('id', id)
-          .single();
+          .single()
 
-        if (reviewsError) throw reviewsError;
+        if (reviewsError) throw reviewsError
 
-        setCurrentReport(reviewsData);
+        setCurrentReport(reviewsData)
       } catch (err) {
-        setError('Failed to load company data');
-        console.error('Error:', err);
+        setError('Failed to load company data')
+        console.error('Error:', err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchCompanyData();
+    fetchCompanyData()
 
     const subscription = supabase
       .channel('custom-update-channel')
@@ -43,16 +43,16 @@ export const useReport = () => {
             setCurrentReport((prev) => ({
               ...prev,
               ...(payload.new as ICompanyReport),
-            }));
+            }))
           }
         }
       )
-      .subscribe();
+      .subscribe()
 
     return () => {
-      subscription.unsubscribe();
-    };
-  }, [id]);
+      subscription.unsubscribe()
+    }
+  }, [id])
 
-  return { currentReport, loading, error };
-};
+  return { currentReport, loading, error }
+}

@@ -1,13 +1,13 @@
-import { User } from 'lucide-react';
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { User } from 'lucide-react'
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const CompanyOwners = ({
   owners,
   isReportPending,
 }: {
-  owners: ICompanyReport['owners'];
-  isReportPending: boolean;
+  owners: ICompanyReport['owners']
+  isReportPending: boolean
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
     <h2 className="text-xl font-bold text-gray-900 mb-6">Company Owners</h2>
@@ -34,4 +34,4 @@ export const CompanyOwners = ({
       <p className="text-gray-600">No owner information available</p>
     )}
   </div>
-);
+)

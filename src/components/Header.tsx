@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Shield, Menu, X, LogOut, User } from 'lucide-react';
-import { Button } from './Button';
-import { useAuth } from '../context/AuthContext';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Shield, Menu, X, LogOut, User } from 'lucide-react'
+import { Button } from './Button'
+import { useAuth } from '../context/AuthContext'
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isAuthenticated, user, logout } = useAuth();
-  const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { isAuthenticated, user, logout } = useAuth()
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-    setMobileMenuOpen(false);
-  };
+    await logout()
+    navigate('/login')
+    setMobileMenuOpen(false)
+  }
 
   return (
     <header className="relative z-50">
@@ -23,30 +23,50 @@ export function Header() {
           Official Moving Company Verification Database
         </div>
       </div>
-      
+
       {/* Main Header */}
       <div className="border-b bg-white">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
+          <Link
+            to="/"
+            className="flex items-center space-x-2"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             <Shield className="w-8 h-8 text-blue-900" />
             <div>
-              <span className="text-lg sm:text-xl font-bold text-blue-900">National Mover Bureau</span>
-              <span className="text-xs block text-gray-600 hidden sm:block">Official Verification Database</span>
+              <span className="text-lg sm:text-xl font-bold text-blue-900">
+                National Mover Bureau
+              </span>
+              <span className="text-xs block text-gray-600 hidden sm:block">
+                Official Verification Database
+              </span>
             </div>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <Link to="/search" className="text-gray-700 hover:text-blue-900 font-medium">
+            <Link
+              to="/search"
+              className="text-gray-700 hover:text-blue-900 font-medium"
+            >
               Verify a Company
             </Link>
-            <Link to="/pricing" className="text-gray-700 hover:text-blue-900 font-medium">
+            <Link
+              to="/pricing"
+              className="text-gray-700 hover:text-blue-900 font-medium"
+            >
               Pricing
             </Link>
-            <Link to="/regulations" className="text-gray-700 hover:text-blue-900 font-medium">
+            <Link
+              to="/regulations"
+              className="text-gray-700 hover:text-blue-900 font-medium"
+            >
               Regulations
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-blue-900 font-medium">
+            <Link
+              to="/contact"
+              className="text-gray-700 hover:text-blue-900 font-medium"
+            >
               Contact
             </Link>
           </nav>
@@ -57,15 +77,20 @@ export function Header() {
               <>
                 <div className="flex items-center gap-2 text-gray-700">
                   <User className="w-4 h-4" />
-                  <span className="text-sm hidden xl:inline">{user?.email}</span>
+                  <span className="text-sm hidden xl:inline">
+                    {user?.email}
+                  </span>
                 </div>
                 <Link to="/dashboard">
-                  <Button variant="outline" className="border-blue-900 text-blue-900 hover:bg-blue-50">
+                  <Button
+                    variant="outline"
+                    className="border-blue-900 text-blue-900 hover:bg-blue-50"
+                  >
                     Dashboard
                   </Button>
                 </Link>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="border-red-600 text-red-600 hover:bg-red-50"
                   onClick={handleLogout}
                 >
@@ -76,7 +101,10 @@ export function Header() {
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="outline" className="border-blue-900 text-blue-900 hover:bg-blue-50">
+                  <Button
+                    variant="outline"
+                    className="border-blue-900 text-blue-900 hover:bg-blue-50"
+                  >
                     Log in
                   </Button>
                 </Link>
@@ -105,23 +133,29 @@ export function Header() {
       </div>
 
       {/* Mobile Menu */}
-      <div 
+      <div
         className={`lg:hidden fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity duration-200 ${
           mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMobileMenuOpen(false)}
       >
-        <div 
+        <div
           className={`fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-xl transform transition-transform duration-200 ${
             mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
-          onClick={e => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="p-6 overflow-y-auto h-full">
             <div className="flex items-center justify-between mb-8">
-              <Link to="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
+              <Link
+                to="/"
+                className="flex items-center space-x-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 <Shield className="w-8 h-8 text-blue-900" />
-                <span className="text-xl font-bold text-blue-900">National Mover Bureau</span>
+                <span className="text-xl font-bold text-blue-900">
+                  National Mover Bureau
+                </span>
               </Link>
               <button
                 className="p-2 text-gray-600 hover:text-blue-900"
@@ -161,7 +195,7 @@ export function Header() {
               >
                 Contact
               </Link>
-              
+
               <div className="pt-6 border-t">
                 {isAuthenticated ? (
                   <div className="space-y-4">
@@ -169,8 +203,8 @@ export function Header() {
                       <User className="w-4 h-4" />
                       <span className="text-sm">{user?.email}</span>
                     </div>
-                    <Link 
-                      to="/dashboard" 
+                    <Link
+                      to="/dashboard"
                       onClick={() => setMobileMenuOpen(false)}
                       className="block"
                     >
@@ -181,8 +215,8 @@ export function Header() {
                         Dashboard
                       </Button>
                     </Link>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full border-red-600 text-red-600 hover:bg-red-50"
                       onClick={handleLogout}
                     >
@@ -192,8 +226,8 @@ export function Header() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <Link 
-                      to="/login" 
+                    <Link
+                      to="/login"
                       onClick={() => setMobileMenuOpen(false)}
                       className="block"
                     >
@@ -204,8 +238,8 @@ export function Header() {
                         Log in
                       </Button>
                     </Link>
-                    <Link 
-                      to="/signup" 
+                    <Link
+                      to="/signup"
                       onClick={() => setMobileMenuOpen(false)}
                       className="block"
                     >
@@ -221,5 +255,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }

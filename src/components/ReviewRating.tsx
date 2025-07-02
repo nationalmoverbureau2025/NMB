@@ -1,14 +1,14 @@
-import { Award, Star, TrendingUp } from 'lucide-react';
-import { ICompanyReport } from '../lib/types';
-import { displayValueOrLoader } from '../lib/displayValueOrLoader';
-import { ReviewTimelineChart } from './ReviewTimelineChart';
+import { Award, Star, TrendingUp } from 'lucide-react'
+import { ICompanyReport } from '../lib/types'
+import { displayValueOrLoader } from '../lib/displayValueOrLoader'
+import { ReviewTimelineChart } from './ReviewTimelineChart'
 
 export const ReviewRating = ({
   currentReport,
 }: {
-  currentReport: ICompanyReport;
+  currentReport: ICompanyReport
 }) => {
-  const isReportPending = currentReport?.status === 'in_progress';
+  const isReportPending = currentReport?.status === 'in_progress'
 
   return (
     <>
@@ -155,5 +155,5 @@ export const ReviewRating = ({
           </div>
         )}
     </>
-  );
-};
+  )
+}

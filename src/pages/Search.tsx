@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
-import { useQuery } from '@tanstack/react-query';
-import { AlertTriangle, Info } from 'lucide-react';
-import { SearchForm } from '../components/SearchForm';
-import { searchCompanies } from '../lib/search';
+import { useQuery } from '@tanstack/react-query'
+import { AlertTriangle, Info } from 'lucide-react'
+import { SearchForm } from '../components/SearchForm'
+import { searchCompanies } from '../lib/search'
 
-import { Results } from '../components/Results';
-import { useLocation } from 'react-router-dom';
+import { Results } from '../components/Results'
+import { useLocation } from 'react-router-dom'
 
 export function Search() {
-  const location = useLocation();
-  const urlSearchParams = new URLSearchParams(location.search);
-  const companyDot = urlSearchParams.get('companyDot');
+  const location = useLocation()
+  const urlSearchParams = new URLSearchParams(location.search)
+  const companyDot = urlSearchParams.get('companyDot')
 
   const [searchParams, setSearchParams] = useState<{
-    query: string;
-    type: 'name' | 'dot' | 'mc';
-    state?: string;
-  } | null>(null);
+    query: string
+    type: 'name' | 'dot' | 'mc'
+    state?: string
+  } | null>(null)
 
   useEffect(() => {
-    companyDot && setSearchParams({ query: companyDot, type: 'dot' });
-  }, []);
+    companyDot && setSearchParams({ query: companyDot, type: 'dot' })
+  }, [])
 
   const {
     data: results,
@@ -38,15 +38,15 @@ export function Search() {
           )
         : Promise.resolve([]),
     enabled: !!searchParams,
-  });
+  })
 
   const handleSearch = (
     query: string,
     type: 'name' | 'dot' | 'mc',
     state?: string
   ) => {
-    setSearchParams({ query, type, state });
-  };
+    setSearchParams({ query, type, state })
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -119,5 +119,5 @@ export function Search() {
         </div>
       </div>
     </div>
-  );
+  )
 }

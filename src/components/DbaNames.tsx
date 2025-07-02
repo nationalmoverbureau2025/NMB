@@ -1,12 +1,12 @@
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const DbaNames = ({
   dba_names,
   isReportPending,
 }: {
-  dba_names: ICompanyReport['dba_names'];
-  isReportPending: boolean;
+  dba_names: ICompanyReport['dba_names']
+  isReportPending: boolean
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
     <h2 className="text-xl font-bold text-gray-900 mb-6">
@@ -34,4 +34,4 @@ export const DbaNames = ({
       <p className="text-gray-600">No DBA names on record</p>
     )}
   </div>
-);
+)

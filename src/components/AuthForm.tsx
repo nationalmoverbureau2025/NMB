@@ -77,7 +77,7 @@ export function AuthForm({ mode }: AuthFormProps) {
           setSuccess(
             'Account created successfully! Please visit your email to verify'
           )
-          // // Handle redirect after successful signup
+          // Handle redirect after successful signup
           // if (redirectPath === 'checkout') {
           //   const savedPriceId = localStorage.getItem('checkoutPriceId');
           //   if (savedPriceId) {

@@ -1,39 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { Search as SearchIcon, MapPin } from 'lucide-react';
-import { Button } from './Button';
-import { US_STATES } from '../lib/constants';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Search as SearchIcon, MapPin } from 'lucide-react'
+import { Button } from './Button'
+import { US_STATES } from '../lib/constants'
+import { useLocation } from 'react-router-dom'
 
 interface SearchFormProps {
-  onSearch: (
-    query: string,
-    type: 'name' | 'dot' | 'mc',
-    state?: string
-  ) => void;
-  isLoading: boolean;
+  onSearch: (query: string, type: 'name' | 'dot' | 'mc', state?: string) => void
+  isLoading: boolean
 }
 
 export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
-  const location = useLocation();
-  const urlSearchParams = new URLSearchParams(location.search);
-  const companyDot = urlSearchParams.get('companyDot');
+  const location = useLocation()
+  const urlSearchParams = new URLSearchParams(location.search)
+  const companyDot = urlSearchParams.get('companyDot')
 
-  const [query, setQuery] = useState('');
-  const [searchType, setSearchType] = useState<'name' | 'dot' | 'mc'>('name');
-  const [state, setState] = useState<string>('');
+  const [query, setQuery] = useState('')
+  const [searchType, setSearchType] = useState<'name' | 'dot' | 'mc'>('name')
+  const [state, setState] = useState<string>('')
 
   useEffect(() => {
     if (companyDot) {
-      setQuery(companyDot);
-      setSearchType('dot');
+      setQuery(companyDot)
+      setSearchType('dot')
     }
-  }, []);
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) return;
-    onSearch(query.trim(), searchType, state);
-  };
+    e.preventDefault()
+    if (!query.trim()) return
+    onSearch(query.trim(), searchType, state)
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -137,5 +133,5 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
         )}
       </div>
     </form>
-  );
+  )
 }

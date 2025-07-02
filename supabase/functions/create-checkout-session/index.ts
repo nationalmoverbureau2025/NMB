@@ -1,15 +1,15 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import Stripe from 'https://esm.sh/stripe@12.0.0?target=deno';
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import Stripe from 'https://esm.sh/stripe@12.0.0?target=deno'
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers':
     'authorization, x-client-info, apikey, content-type',
   'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-};
-const STRIPE_SECRET_KEY = Deno.env.get('STRIPE_SECRET_KEY');
+}
+const STRIPE_SECRET_KEY = Deno.env.get('STRIPE_SECRET_KEY')
 const stripe = new Stripe(STRIPE_SECRET_KEY || '', {
   apiVersion: '2023-10-16',
-});
+})
 const PRICE_LOOKUP = {
   price_single_report: {
     price: 4500,
@@ -39,17 +39,17 @@ const PRICE_LOOKUP = {
       interval_count: 1,
     },
   },
-};
+}
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', {
       headers: corsHeaders,
       status: 200,
-    });
+    })
   }
   try {
     const { priceId, customerId, successUrl, cancelUrl, companyDot } =
-      await req.json();
+      await req.json()
     // Validate required parameters
     if (!priceId || !successUrl || !cancelUrl) {
       return new Response(
@@ -63,10 +63,10 @@ serve(async (req) => {
             'Content-Type': 'application/json',
           },
         }
-      );
+      )
     }
     // Get price details from our lookup
-    const priceDetails = PRICE_LOOKUP[priceId];
+    const priceDetails = PRICE_LOOKUP[priceId]
     if (!priceDetails) {
       return new Response(
         JSON.stringify({
@@ -79,7 +79,7 @@ serve(async (req) => {
             'Content-Type': 'application/json',
           },
         }
-      );
+      )
     }
     // Create line items based on product type
     const lineItems = [
@@ -91,21 +91,23 @@ serve(async (req) => {
             description: priceDetails.description,
           },
           unit_amount: priceDetails.price,
-          ...(priceDetails.recurring ? { recurring: priceDetails.recurring } : {}),
+          ...(priceDetails.recurring
+            ? { recurring: priceDetails.recurring }
+            : {}),
         },
         quantity: 1,
       },
-    ];
-    let stripeCustomerId;
+    ]
+    let stripeCustomerId
     try {
       // Try to find existing Stripe customer by metadata
       const customers = await stripe.customers.search({
         query: `metadata['user_id']:'${customerId}'`,
-      });
+      })
       if (customers.data.length > 0) {
         // Use existing customer
-        stripeCustomerId = customers.data[0].id;
-        console.log('Found existing Stripe customer:', stripeCustomerId);
+        stripeCustomerId = customers.data[0].id
+        console.log('Found existing Stripe customer:', stripeCustomerId)
       } else {
         // Create a new customer
         const newCustomer = await stripe.customers.create({
@@ -113,12 +115,12 @@ serve(async (req) => {
           metadata: {
             user_id: customerId,
           },
-        });
-        stripeCustomerId = newCustomer.id;
-        console.log('Created new Stripe customer:', stripeCustomerId);
+        })
+        stripeCustomerId = newCustomer.id
+        console.log('Created new Stripe customer:', stripeCustomerId)
       }
     } catch (error) {
-      console.error('Error creating/finding Stripe customer:', error);
+      console.error('Error creating/finding Stripe customer:', error)
       return new Response(
         JSON.stringify({
           error: 'Failed to create Stripe customer',
@@ -130,9 +132,9 @@ serve(async (req) => {
             'Content-Type': 'application/json',
           },
         }
-      );
+      )
     }
-    console.log('Creating checkout session with customer:', stripeCustomerId);
+    console.log('Creating checkout session with customer:', stripeCustomerId)
     // Create checkout session
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomerId,
@@ -147,7 +149,7 @@ serve(async (req) => {
         product_type: priceDetails.type,
         user_id: customerId,
       },
-    });
+    })
     return new Response(
       JSON.stringify({
         url: session.url,
@@ -158,9 +160,9 @@ serve(async (req) => {
           'Content-Type': 'application/json',
         },
       }
-    );
+    )
   } catch (error) {
-    console.error('Error creating checkout session:', error);
+    console.error('Error creating checkout session:', error)
     return new Response(
       JSON.stringify({
         error: error.message,
@@ -172,6 +174,6 @@ serve(async (req) => {
           'Content-Type': 'application/json',
         },
       }
-    );
+    )
   }
-});
+})

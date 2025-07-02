@@ -1,37 +1,47 @@
-import React, { useState } from 'react';
-import { Search, AlertTriangle, CheckCircle, XCircle, Shield, FileText, Truck, Building2 } from 'lucide-react';
-import { Button } from '../components/Button';
-import { supabase } from '../lib/supabase';
+import React, { useState } from 'react'
+import {
+  Search,
+  AlertTriangle,
+  CheckCircle,
+  XCircle,
+  Shield,
+  FileText,
+  Truck,
+  Building2,
+} from 'lucide-react'
+import { Button } from '../components/Button'
+import { supabase } from '../lib/supabase'
 
 interface VerificationResult {
-  status: 'active' | 'inactive' | 'suspended' | 'expired';
-  dot_number: string;
-  company_name: string;
-  license_status: string;
-  insurance_status: string;
-  operating_status: string;
-  safety_rating: string;
-  last_updated: string;
+  status: 'active' | 'inactive' | 'suspended' | 'expired'
+  dot_number: string
+  company_name: string
+  license_status: string
+  insurance_status: string
+  operating_status: string
+  safety_rating: string
+  last_updated: string
 }
 
 export function License() {
-  const [searchType, setSearchType] = useState<'dot' | 'mc'>('dot');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<VerificationResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [searchType, setSearchType] = useState<'dot' | 'mc'>('dot')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [result, setResult] = useState<VerificationResult | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setResult(null);
-    setIsLoading(true);
+    e.preventDefault()
+    setError(null)
+    setResult(null)
+    setIsLoading(true)
 
     try {
       // Query the database for the company
       const { data, error: dbError } = await supabase
         .from('companies')
-        .select(`
+        .select(
+          `
           dot_number,
           company_name,
           license_status,
@@ -39,59 +49,67 @@ export function License() {
           operating_status,
           safety_rating,
           updated_at
-        `)
+        `
+        )
         .eq(searchType === 'dot' ? 'dot_number' : 'mc_number', searchQuery)
-        .single();
+        .single()
 
-      if (dbError) throw dbError;
+      if (dbError) throw dbError
 
       if (!data) {
-        setError('No company found with the provided number. Please verify and try again.');
-        return;
+        setError(
+          'No company found with the provided number. Please verify and try again.'
+        )
+        return
       }
 
       setResult({
-        status: data.license_status?.toLowerCase() === 'active' ? 'active' : 'inactive',
+        status:
+          data.license_status?.toLowerCase() === 'active'
+            ? 'active'
+            : 'inactive',
         dot_number: data.dot_number,
         company_name: data.company_name,
         license_status: data.license_status,
         insurance_status: data.insurance_status,
         operating_status: data.operating_status,
         safety_rating: data.safety_rating,
-        last_updated: new Date(data.updated_at).toLocaleDateString()
-      });
+        last_updated: new Date(data.updated_at).toLocaleDateString(),
+      })
     } catch (err) {
-      console.error('License verification error:', err);
-      setError('An error occurred while verifying the license. Please try again.');
+      console.error('License verification error:', err)
+      setError(
+        'An error occurred while verifying the license. Please try again.'
+      )
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
       case 'active':
-        return 'text-green-600';
+        return 'text-green-600'
       case 'suspended':
-        return 'text-red-600';
+        return 'text-red-600'
       case 'expired':
-        return 'text-red-600';
+        return 'text-red-600'
       default:
-        return 'text-gray-600';
+        return 'text-gray-600'
     }
-  };
+  }
 
   const getStatusIcon = (status: string) => {
     switch (status?.toLowerCase()) {
       case 'active':
-        return <CheckCircle className="w-5 h-5 text-green-600" />;
+        return <CheckCircle className="w-5 h-5 text-green-600" />
       case 'suspended':
       case 'expired':
-        return <XCircle className="w-5 h-5 text-red-600" />;
+        return <XCircle className="w-5 h-5 text-red-600" />
       default:
-        return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
+        return <AlertTriangle className="w-5 h-5 text-yellow-600" />
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -144,7 +162,10 @@ export function License() {
               </div>
 
               <div>
-                <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="search"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Enter {searchType.toUpperCase()} Number
                 </label>
                 <div className="relative">
@@ -161,11 +182,7 @@ export function License() {
                 </div>
               </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? 'Verifying...' : 'Verify License'}
               </Button>
             </form>
@@ -183,9 +200,11 @@ export function License() {
           {result && (
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               {/* Status Header */}
-              <div className={`p-6 ${
-                result.status === 'active' ? 'bg-green-50' : 'bg-red-50'
-              }`}>
+              <div
+                className={`p-6 ${
+                  result.status === 'active' ? 'bg-green-50' : 'bg-red-50'
+                }`}
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     {getStatusIcon(result.status)}
@@ -212,8 +231,14 @@ export function License() {
                     <div className="flex items-center gap-2">
                       <Shield className="w-5 h-5 text-blue-600" />
                       <div>
-                        <div className="text-sm text-gray-600">Insurance Status</div>
-                        <div className={`font-medium ${getStatusColor(result.insurance_status)}`}>
+                        <div className="text-sm text-gray-600">
+                          Insurance Status
+                        </div>
+                        <div
+                          className={`font-medium ${getStatusColor(
+                            result.insurance_status
+                          )}`}
+                        >
                           {result.insurance_status}
                         </div>
                       </div>
@@ -222,8 +247,14 @@ export function License() {
                     <div className="flex items-center gap-2">
                       <Building2 className="w-5 h-5 text-blue-600" />
                       <div>
-                        <div className="text-sm text-gray-600">Operating Status</div>
-                        <div className={`font-medium ${getStatusColor(result.operating_status)}`}>
+                        <div className="text-sm text-gray-600">
+                          Operating Status
+                        </div>
+                        <div
+                          className={`font-medium ${getStatusColor(
+                            result.operating_status
+                          )}`}
+                        >
                           {result.operating_status}
                         </div>
                       </div>
@@ -234,15 +265,21 @@ export function License() {
                     <div className="flex items-center gap-2">
                       <Truck className="w-5 h-5 text-blue-600" />
                       <div>
-                        <div className="text-sm text-gray-600">Safety Rating</div>
-                        <div className="font-medium">{result.safety_rating || 'Not Rated'}</div>
+                        <div className="text-sm text-gray-600">
+                          Safety Rating
+                        </div>
+                        <div className="font-medium">
+                          {result.safety_rating || 'Not Rated'}
+                        </div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
                       <FileText className="w-5 h-5 text-blue-600" />
                       <div>
-                        <div className="text-sm text-gray-600">Last Updated</div>
+                        <div className="text-sm text-gray-600">
+                          Last Updated
+                        </div>
                         <div className="font-medium">{result.last_updated}</div>
                       </div>
                     </div>
@@ -254,9 +291,13 @@ export function License() {
                   <div className="flex items-start gap-3">
                     <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-medium text-amber-900">Important Notice</p>
+                      <p className="font-medium text-amber-900">
+                        Important Notice
+                      </p>
                       <p className="text-sm text-amber-800 mt-1">
-                        This verification result reflects the most recent data available in our system. For the most current status, please verify with the FMCSA directly.
+                        This verification result reflects the most recent data
+                        available in our system. For the most current status,
+                        please verify with the FMCSA directly.
                       </p>
                     </div>
                   </div>
@@ -267,5 +308,5 @@ export function License() {
         </div>
       </div>
     </div>
-  );
+  )
 }
