@@ -15,6 +15,14 @@ import { Button } from '../components/Button'
 import { useDashboard } from '../hooks/useDashboard'
 import { RefreshPaymentButton } from '../components/RefreshPaymentButton'
 
+const planNames = {
+  free_report: 'Free Report',
+  single_report: 'Single Report',
+  reports_bundle: '3 Reports Bundle',
+  refresh_report: 'Refresh Report',
+  price_monthly_subscription: 'Monthly Subscription',
+}
+
 export function Dashboard() {
   const navigate = useNavigate()
   const { isLoading, logout, userData, isAuthenticated, userReports } =
@@ -240,7 +248,7 @@ export function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 className="font-medium text-gray-700 mb-2">Current Plan</h3>
-            <p className="text-gray-600">{userData.plan}</p>
+            <p className="text-gray-600">{planNames[userData.plan]}</p>
             <Button
               variant="outline"
               className="mt-4"

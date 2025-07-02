@@ -24,9 +24,38 @@ import { supabase } from '../lib/supabase'
 
 const freePlans = [
   {
-    name: '1 free report',
+    name: '1 Free Report',
     price: 0,
     description: 'Single company discovery',
+    descr:
+      'Compare With Confidence. Most people compare 3 to 6 moving companies - get your first one verified free.',
+    popular: false,
+    subtitle: 'One-time free report for new users.',
+    features: [
+      'Full company background check',
+      'Authority Registration verification',
+      'Authority Status confirmation',
+      'Insurance Coverage analysis',
+      'Authorized Cargo Types review',
+      'Legal History investigation',
+      'Customer Reviews Analysis',
+      'AI Suspicious Activity Flags',
+      'Red Flags Analysis',
+      'Advanced fake review detection',
+      'Downloadable PDF report',
+      'Email support',
+      'One-time free report for new users',
+    ],
+    priceId: null,
+    buttonText: 'Get Your Free Report', // Explicitly set button text
+  },
+]
+
+const primaryPlans = [
+  {
+    name: 'Single report',
+    price: 34,
+    description: "Perfect if you're only checking one company",
     popular: false,
     features: [
       'Full company background check',
@@ -40,16 +69,10 @@ const freePlans = [
       'Red Flags Analysis',
       'Advanced fake review detection',
       'Downloadable PDF report',
-      'Valid for 30 days',
-      'Email support',
-      'Free first report for user',
     ],
-    priceId: null,
-    buttonText: 'Get Your Free Report', // Explicitly set button text
+    priceId: products.singleReport.id,
+    buttonText: 'Check Your Mover Now',
   },
-]
-
-const primaryPlans = [
   {
     name: 'Unlimited Reports',
     price: 89,
@@ -81,9 +104,9 @@ const primaryPlans = [
 
 const secondaryPlans = [
   {
-    name: '1 additional report',
-    price: 45,
-    description: 'Single company discovery',
+    name: 'Single report',
+    price: 34,
+    description: "Perfect if you're only checking one company",
     popular: false,
     features: [
       'Full company background check',
@@ -97,8 +120,6 @@ const secondaryPlans = [
       'Red Flags Analysis',
       'Advanced fake review detection',
       'Downloadable PDF report',
-      'Valid for 30 days',
-      'Email support',
     ],
     priceId: products.singleReport.id,
     buttonText: 'Check Your Mover Now',
@@ -153,6 +174,7 @@ export function Pricing() {
           user_id: user.id,
           credits_remaining: 1,
           purchase_date: new Date().toISOString(),
+          subscription_type: 'free_report',
         })
         .select()
 
@@ -244,86 +266,86 @@ export function Pricing() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="flex justify-center mb-8">
-          <div className="w-full max-w-md">
-            {(isOldUser ? primaryPlans : freePlans).map((plan) => (
-              <div
-                key={plan.name}
-                className={`bg-white rounded-lg shadow-md overflow-hidden
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center mb-8">
+          {(isOldUser ? primaryPlans : freePlans).map((plan) => (
+            <div
+              key={plan.name}
+              className={`bg-white rounded-lg shadow-md overflow-hidden
+                
                   ${plan.popular ? 'ring-2 ring-blue-600' : ''}
                 `}
-              >
-                {plan.popular && (
-                  <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
-                    Most Popular
-                  </div>
-                )}
+            >
+              {plan.popular && (
+                <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
+                  Most Popular
+                </div>
+              )}
 
-                <div className="p-6">
-                  {/* Tagline at the top */}
-                  <div className="text-center mb-6">
-                    <p className="text-gray-600 text-sm mb-4">
-                      Most people compare 3 to 6 different moving companies.
+              <div className="flex flex-col justify-between p-6 h-[95%]">
+                {/* Tagline at the top */}
+                <div className="text-center mb-6">
+                  <p className="text-gray-600 text-sm mb-4">
+                    {plan.descr ||
+                      'Most people compare 3 to 6 different moving companies.'}
+                  </p>
+
+                  {/* Plan name and description */}
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    {plan.name}
+                  </h3>
+                  <p className="text-gray-600 mb-4">{plan.description}</p>
+
+                  {/* Price and payment info */}
+                  <div className="mb-4">
+                    <div className="text-4xl font-bold text-gray-900 mb-1">
+                      ${plan.price}
+                    </div>
+                    <p className="text-gray-500 text-sm mb-2">
+                      {plan?.subtitle || 'One-time payment'}
                     </p>
 
-                    {/* Plan name and description */}
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                      {plan.name}
-                    </h3>
-                    <p className="text-gray-600 mb-4">{plan.description}</p>
-
-                    {/* Price and payment info */}
-                    <div className="mb-4">
-                      <div className="text-4xl font-bold text-gray-900 mb-1">
-                        ${plan.price}
-                      </div>
-                      <p className="text-gray-500 text-sm mb-2">
-                        {plan.subtitle || 'One-time payment'}
-                      </p>
-
-                      {/* Trust line */}
-                      <div className="flex items-center justify-center text-xs text-gray-400 gap-1">
-                        <span>🔒</span>
-                        <span>Secure Checkout | No recurring charges</span>
-                      </div>
+                    {/* Trust line */}
+                    <div className="flex items-center justify-center text-xs text-gray-400 gap-1">
+                      <span>🔒</span>
+                      <span>Secure Checkout | No recurring charges</span>
                     </div>
                   </div>
-
-                  <div className="space-y-2 mb-6">
-                    {plan.features.map((feature) => (
-                      <div key={feature} className="flex items-start">
-                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                        <span
-                          className={`text-sm text-gray-600 ${
-                            isHighlightFeature(feature) ? 'font-semibold' : ''
-                          }`}
-                        >
-                          {feature}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {plan.priceId ? (
-                    <CheckoutButton
-                      priceId={plan.priceId}
-                      className={
-                        plan.popular
-                          ? 'w-full'
-                          : 'w-full bg-white text-blue-900 border-blue-900 hover:bg-blue-50'
-                      }
-                    >
-                      {plan.buttonText}
-                    </CheckoutButton>
-                  ) : (
-                    <Button className="w-full" onClick={processFreeReport}>
-                      {plan.buttonText}
-                    </Button>
-                  )}
                 </div>
+
+                <div className="space-y-2 mb-6">
+                  {plan.features.map((feature) => (
+                    <div key={feature} className="flex items-start">
+                      <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span
+                        className={`text-sm text-gray-600 ${
+                          isHighlightFeature(feature) ? 'font-semibold' : ''
+                        }`}
+                      >
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {plan.priceId ? (
+                  <CheckoutButton
+                    priceId={plan.priceId}
+                    className={
+                      plan.popular
+                        ? 'w-full'
+                        : 'w-full bg-white text-blue-900 border-blue-900 hover:bg-blue-50'
+                    }
+                  >
+                    {plan.buttonText}
+                  </CheckoutButton>
+                ) : (
+                  <Button className="w-full" onClick={processFreeReport}>
+                    {plan.buttonText}
+                  </Button>
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         {/* Trust Badges Section */}

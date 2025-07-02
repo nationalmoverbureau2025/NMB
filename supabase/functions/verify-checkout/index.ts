@@ -112,6 +112,7 @@ serve(async (req) => {
             .from('customer_credits')
             .update({
               credits_remaining: existingCredits.credits_remaining + credits,
+              subscription_type: productType,
               purchase_date: currentDate,
             })
             .eq('user_id', userId)
@@ -144,6 +145,7 @@ serve(async (req) => {
             .insert({
               user_id: userId,
               credits_remaining: credits,
+              subscription_type: productType,
               purchase_date: currentDate,
             })
             .select()

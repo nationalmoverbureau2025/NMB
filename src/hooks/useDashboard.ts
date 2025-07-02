@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { ICompanyReport } from '../lib/types'
+import { hasMonthPassed } from '../lib/utils'
 
 interface IcompanyListReport
   extends Pick<ICompanyReport, 'id' | 'status' | 'created_at' | 'expires_at'> {
@@ -24,19 +25,23 @@ export const useDashboard = () => {
     try {
       const { data, error } = await supabase
         .from('customer_credits')
-        .select('credits_remaining')
+        .select('credits_remaining, subscription_type, purchase_date')
         .eq('user_id', userId)
         .single()
 
       if (error) {
         console.error('Error fetching user credits:', error)
-        return 0
+        return {
+          credits_remaining: 0,
+          subscription_type: '',
+          purchase_date: '',
+        }
       }
 
-      return data?.credits_remaining || 0
+      return data
     } catch (error) {
       console.error('Failed to fetch user credits:', error)
-      return 0
+      return { credits_remaining: 0, subscription_type: '', purchase_date: '' }
     }
   }
 
@@ -64,11 +69,35 @@ export const useDashboard = () => {
         const userCredits = await fetchUserCredits(user.id)
         await fetchUserReports(user.id)
 
+        const credits =
+          userCredits?.subscription_type === 'price_monthly_subscription'
+            ? hasMonthPassed(userCredits?.purchase_date)
+              ? 0
+              : userCredits.credits_remaining
+            : userCredits.credits_remaining
+
         setUserData({
           email: user.email || '',
-          plan: 'Free Plan',
-          credits: userCredits,
+          plan: userCredits?.subscription_type || 'free_report',
+          credits: credits,
         })
+
+        if (
+          userCredits?.subscription_type === 'price_monthly_subscription' &&
+          hasMonthPassed(userCredits?.purchase_date)
+        ) {
+          try {
+            await supabase
+              .from('customer_credits')
+              .update({
+                credits_remaining: 0,
+                subscription_type: 'price_monthly_subscription',
+              })
+              .eq('user_id', user?.id)
+          } catch (error) {
+            console.log('Error updating report credits:', error)
+          }
+        }
       }
 
       getUserData()

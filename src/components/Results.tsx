@@ -5,6 +5,7 @@ import { type SearchResult } from '../lib/search'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import { useNavigate } from 'react-router-dom'
+import { hasMonthPassed } from '../lib/utils'
 
 const getRiskColor = (score: number) => {
   if (score >= 7) return 'text-red-600'
@@ -28,7 +29,7 @@ export const Results = ({ results }: { results: SearchResult[] }) => {
       // Check user's available credits
       const { data: credits, error } = await supabase
         .from('customer_credits')
-        .select('credits_remaining')
+        .select('credits_remaining, subscription_type, purchase_date')
         .eq('user_id', user.id)
         .single()
 
@@ -43,6 +44,25 @@ export const Results = ({ results }: { results: SearchResult[] }) => {
       // If no credits record exists or credits_remaining is 0
       if (!credits || credits.credits_remaining <= 0) {
         // Redirect to pricing page
+        navigate('/pricing')
+        return
+      }
+
+      if (
+        credits.subscription_type === 'price_monthly_subscription' &&
+        hasMonthPassed(credits.purchase_date)
+      ) {
+        try {
+          await supabase
+            .from('customer_credits')
+            .update({
+              credits_remaining: 0,
+              subscription_type: 'price_monthly_subscription',
+            })
+            .eq('user_id', user?.id)
+        } catch (error) {
+          console.log('Error updating report credits:', error)
+        }
         navigate('/pricing')
         return
       }

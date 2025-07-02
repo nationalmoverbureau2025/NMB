@@ -13,7 +13,7 @@ export const products = {
   singleReport: {
     id: 'price_single_report',
     name: 'Single Report',
-    price: 4500, // in cents
+    price: 3400, // in cents
     description: 'One-time comprehensive report',
   },
   bundle3Reports: {
@@ -33,10 +33,6 @@ export const products = {
     name: 'Monthly Subscription',
     price: 8900, // in centsAdd commentMore actions
     description: 'Monthly access to unlimited reports',
-    recurring: {
-      interval: 'month',
-      interval_count: 1,
-    },
   },
 }
 

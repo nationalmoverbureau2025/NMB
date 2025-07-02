@@ -19,8 +19,10 @@ import { RedFlags } from '../components/RedFlags'
 import { Button } from '../components/Button'
 import { generateReportPDF } from '../lib/pdf'
 
+const TOTAL_REPORT_FIELDS = 44
+
 export function CompanyReport() {
-  const { currentReport, loading, error } = useReport()
+  const { currentReport, loading, error, filledFieldsCount } = useReport()
   const isReportPending = currentReport?.status === 'in_progress'
   const isReportError = currentReport?.status === 'canceled'
 
@@ -59,6 +61,19 @@ export function CompanyReport() {
               <span className="text-blue-800 ">
                 Report processing usually takes around 10 minutes
               </span>
+              <div className="w-full">
+                <div className="flex items-center justify-between mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full bg-blue-400 transition-all duration-500`}
+                    style={{
+                      width: `${
+                        (filledFieldsCount / TOTAL_REPORT_FIELDS) * 100
+                      }%`,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           ) : (
             <div></div>

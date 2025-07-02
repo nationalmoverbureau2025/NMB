@@ -12,7 +12,7 @@ const stripe = new Stripe(STRIPE_SECRET_KEY || '', {
 })
 const PRICE_LOOKUP = {
   price_single_report: {
-    price: 4500,
+    price: 3400,
     name: 'Single Report',
     type: 'single_report',
     description: 'One-time comprehensive report',
@@ -34,10 +34,6 @@ const PRICE_LOOKUP = {
     name: 'Monthly Subscription',
     price: 8900,
     description: 'Monthly access to unlimited reports',
-    recurring: {
-      interval: 'month',
-      interval_count: 1,
-    },
   },
 }
 serve(async (req) => {
@@ -91,9 +87,6 @@ serve(async (req) => {
             description: priceDetails.description,
           },
           unit_amount: priceDetails.price,
-          ...(priceDetails.recurring
-            ? { recurring: priceDetails.recurring }
-            : {}),
         },
         quantity: 1,
       },
@@ -140,7 +133,7 @@ serve(async (req) => {
       customer: stripeCustomerId,
       payment_method_types: ['card'],
       line_items: lineItems,
-      mode: priceDetails.recurring ? 'subscription' : 'payment',
+      mode: 'payment',
       success_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}${
         companyDot ? `&companyDot=${companyDot}` : ''
       }`,

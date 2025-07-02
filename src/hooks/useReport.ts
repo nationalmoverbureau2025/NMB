@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { ICompanyReport } from '../lib/types'
@@ -10,8 +10,36 @@ export const useReport = () => {
   )
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
-  console.log('currentReport main', currentReport)
+  const filledFieldsCount = useMemo(() => {
+    const {
+      id,
+      user_id,
+      created_at,
+      expires_at,
+      updated_at,
+      status,
+      companies_perfsol,
+      workflow_run_id,
+      ...report
+    } = currentReport || {}
+    return Object.values(report).filter((value) => {
+      if (
+        value === null ||
+        value === undefined ||
+        value === '' ||
+        value === 0
+      ) {
+        return false
+      }
+      if (Array.isArray(value)) {
+        return value.length > 0
+      }
+      if (typeof value === 'object') {
+        return Object.keys(value).length > 0
+      }
+      return true
+    }).length
+  }, [currentReport])
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -41,32 +69,16 @@ export const useReport = () => {
         'postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'reports_perfsol' },
         (payload) => {
-          console.log('payload', payload)
-          console.log('eq', payload.new.id === id)
-          console.log('p', payload.new.id)
-          console.log('c', id)
-
           if (payload.new.id === id) {
-            console.log('equal')
-            setCurrentReport((prev) => {
-              console.log(
-                'Report updated:',
-                {
-                  ...prev,
-                  ...(payload.new as ICompanyReport),
-                }?.years_in_business
-              )
-
-              return {
-                ...prev,
-                ...(payload.new as ICompanyReport),
-              }
-            })
+            setCurrentReport((prev) => ({
+              ...prev,
+              ...(payload.new as ICompanyReport),
+            }))
           }
         }
       )
       .subscribe((status) => {
-        console.log('Subscription status:', status) // Add this for debugging
+        console.log('Subscription status:', status)
       })
 
     return () => {
@@ -74,5 +86,5 @@ export const useReport = () => {
     }
   }, [id])
 
-  return { currentReport, loading, error }
+  return { currentReport, loading, error, filledFieldsCount }
 }
