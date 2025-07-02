@@ -1,11 +1,11 @@
 export const ReviewTimelineChart = ({
   timeline,
 }: {
-  timeline: { date: string; count: number }[];
+  timeline: { date: string; count: number }[]
 }) => {
-  if (!timeline || timeline.length === 0) return null;
+  if (!timeline || timeline.length === 0) return null
 
-  const maxCount = Math.max(...timeline.map((item) => item.count));
+  const maxCount = Math.max(...timeline.map((item) => item.count))
 
   return (
     <div className="flex items-end gap-3 h-64">
@@ -24,5 +24,5 @@ export const ReviewTimelineChart = ({
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

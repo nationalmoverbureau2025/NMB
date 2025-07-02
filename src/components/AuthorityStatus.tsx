@@ -1,13 +1,13 @@
-import { BadgeCheck } from 'lucide-react';
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { BadgeCheck } from 'lucide-react'
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const AuthorityStatus = ({
   authority_statuses,
   isReportPending,
 }: {
-  authority_statuses: ICompanyReport['authority_statuses'];
-  isReportPending: boolean;
+  authority_statuses: ICompanyReport['authority_statuses']
+  isReportPending: boolean
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
     <h2 className="text-xl font-bold text-gray-900 mb-6">Authority Status</h2>
@@ -28,8 +28,8 @@ export const AuthorityStatus = ({
               </div>
             </div>
             <span
-              className={`px-3 py-1 rounded-full text-sm font-medium text-center ${
-                status.status === 'active'
+              className={`px-3 py-1 rounded-full text-sm font-medium text-center  ${
+                status.status?.toLowerCase() === 'active'
                   ? 'bg-green-100 text-green-800'
                   : 'bg-red-100 text-red-800'
               }`}
@@ -45,4 +45,4 @@ export const AuthorityStatus = ({
       <p className="text-gray-600">No authority status data available</p>
     )}
   </div>
-);
+)

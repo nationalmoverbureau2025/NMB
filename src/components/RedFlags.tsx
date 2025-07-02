@@ -1,7 +1,7 @@
-import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
-import { ICompanyReport } from '../lib/types';
-import { displayLabelsOrLoader } from '../lib/displayLabelsOrSpinner';
-import { InlineSpinner } from '../components/InlineSpinner';
+import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
+import { ICompanyReport } from '../lib/types'
+import { displayLabelsOrLoader } from '../lib/displayLabelsOrSpinner'
+import { InlineSpinner } from '../components/InlineSpinner'
 
 export const getStyles = (
   value: boolean | null | undefined,
@@ -12,22 +12,22 @@ export const getStyles = (
 ) => {
   if (value === null || value === undefined) {
     if (isReportPending) {
-      return onLoadingStyle;
+      return onLoadingStyle
     }
-    return onTrueStyle;
+    return onTrueStyle
   }
-  if (!!value) {
-    return onTrueStyle;
+  if (value) {
+    return onTrueStyle
   }
-  return onFalseStyle;
-};
+  return onFalseStyle
+}
 
 export const RedFlags = ({
   currentReport,
 }: {
-  currentReport: ICompanyReport;
+  currentReport: ICompanyReport
 }) => {
-  const isReportPending = currentReport?.status === 'in_progress';
+  const isReportPending = currentReport?.status === 'in_progress'
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
@@ -325,5 +325,5 @@ export const RedFlags = ({
           </div>
         )}
     </div>
-  );
-};
+  )
+}

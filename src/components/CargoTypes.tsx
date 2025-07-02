@@ -1,12 +1,12 @@
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const CargoTypes = ({
   cargo_types,
   isReportPending,
 }: {
-  cargo_types: ICompanyReport['cargo_types'];
-  isReportPending: boolean;
+  cargo_types: ICompanyReport['cargo_types']
+  isReportPending: boolean
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
     <h2 className="text-xl font-bold text-gray-900 mb-6">
@@ -29,4 +29,4 @@ export const CargoTypes = ({
       <p className="text-gray-600">No cargo type information available</p>
     )}
   </div>
-);
+)

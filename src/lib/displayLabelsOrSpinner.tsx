@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 export const displayLabelsOrLoader = (
   value: boolean | null | undefined,
@@ -9,12 +9,12 @@ export const displayLabelsOrLoader = (
 ) => {
   if (value === null || value === undefined) {
     if (isReportPending) {
-      return onLoading;
+      return onLoading
     }
-    return onTrueValue;
+    return onTrueValue
   }
-  if (!!value) {
-    return onTrueValue;
+  if (value) {
+    return onTrueValue
   }
-  return onFalseValue;
-};
+  return onFalseValue
+}

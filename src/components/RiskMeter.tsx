@@ -1,23 +1,23 @@
-import { InlineSpinner } from './InlineSpinner';
+import { InlineSpinner } from './InlineSpinner'
 
 export const RiskMeter = ({
   score,
   isReportPending,
 }: {
-  isReportPending: boolean;
-  score?: number;
+  isReportPending: boolean
+  score?: number
 }) => {
-  const percentage = score || 0;
+  const percentage = score || 0
   const getColor = () => {
-    if (percentage >= 70) return 'text-green-600';
-    if (percentage >= 40) return 'text-yellow-600';
-    return 'text-red-600';
-  };
+    if (percentage >= 70) return 'text-green-600'
+    if (percentage >= 40) return 'text-yellow-600'
+    return 'text-red-600'
+  }
   const getBgColor = () => {
-    if (percentage >= 70) return 'bg-green-100';
-    if (percentage >= 40) return 'bg-yellow-100';
-    return 'bg-red-100';
-  };
+    if (percentage >= 70) return 'bg-green-100'
+    if (percentage >= 40) return 'bg-yellow-100'
+    return 'bg-red-100'
+  }
 
   return (
     <div className="w-full">
@@ -45,5 +45,5 @@ export const RiskMeter = ({
         <span>Safe</span>
       </div>
     </div>
-  );
-};
+  )
+}

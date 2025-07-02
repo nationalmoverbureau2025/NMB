@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { Button } from '../components/Button';
-import { supabase } from '../lib/supabase';
+import React, { useState } from 'react'
+import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { Button } from '../components/Button'
+import { supabase } from '../lib/supabase'
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -9,15 +9,17 @@ export function Contact() {
     email: '',
     subject: '',
     message: '',
-  });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  })
+  const [status, setStatus] = useState<
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('loading');
-    setErrorMessage('');
-    
+    e.preventDefault()
+    setStatus('loading')
+    setErrorMessage('')
+
     try {
       // Save to database
       const { error: dbError } = await supabase
@@ -27,32 +29,39 @@ export function Contact() {
             name: formData.name,
             email: formData.email,
             subject: formData.subject,
-            message: formData.message
-          }
-        ]);
+            message: formData.message,
+          },
+        ])
 
-      if (dbError) throw dbError;
+      if (dbError) throw dbError
 
       // Send email notification
-      const { error: emailError } = await supabase.functions.invoke('send-email', {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message
+      const { error: emailError } = await supabase.functions.invoke(
+        'send-email',
+        {
+          body: {
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+          },
         }
-      });
+      )
 
-      if (emailError) throw emailError;
-      
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      if (emailError) throw emailError
+
+      setStatus('success')
+      setFormData({ name: '', email: '', subject: '', message: '' })
     } catch (err) {
-      setStatus('error');
-      setErrorMessage(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
-      console.error('Contact form error:', err);
+      setStatus('error')
+      setErrorMessage(
+        err instanceof Error
+          ? err.message
+          : 'Failed to send message. Please try again later.'
+      )
+      console.error('Contact form error:', err)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -60,7 +69,9 @@ export function Contact() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Contact Us</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Contact Us
+            </h1>
             <p className="text-xl text-gray-600">
               Have questions about our verification system? We're here to help.
             </p>
@@ -69,12 +80,17 @@ export function Contact() {
           <div className="grid md:grid-cols-3 gap-8">
             {/* Contact Information */}
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Get in Touch</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                Get in Touch
+              </h2>
               <div className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-blue-600 mt-1" />
                 <div>
                   <p className="font-medium">Email</p>
-                  <a href="mailto:info@nationalmoverbureau.org" className="text-blue-600 hover:text-blue-500">
+                  <a
+                    href="mailto:info@nationalmoverbureau.org"
+                    className="text-blue-600 hover:text-blue-500"
+                  >
                     info@nationalmoverbureau.org
                   </a>
                 </div>
@@ -87,7 +103,10 @@ export function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Name
                       </label>
                       <input
@@ -95,12 +114,20 @@ export function Contact() {
                         id="name"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            name: e.target.value,
+                          }))
+                        }
                         className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Email
                       </label>
                       <input
@@ -108,14 +135,22 @@ export function Contact() {
                         id="email"
                         required
                         value={formData.email}
-                        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            email: e.target.value,
+                          }))
+                        }
                         className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       Subject
                     </label>
                     <input
@@ -123,13 +158,21 @@ export function Contact() {
                       id="subject"
                       required
                       value={formData.subject}
-                      onChange={(e) => setFormData(prev => ({ ...prev, subject: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          subject: e.target.value,
+                        }))
+                      }
                       className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       Message
                     </label>
                     <textarea
@@ -137,7 +180,12 @@ export function Contact() {
                       required
                       rows={6}
                       value={formData.message}
-                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          message: e.target.value,
+                        }))
+                      }
                       className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
@@ -145,7 +193,9 @@ export function Contact() {
                   {status === 'success' && (
                     <div className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-md">
                       <CheckCircle className="w-5 h-5" />
-                      <span>Message sent successfully! We'll get back to you soon.</span>
+                      <span>
+                        Message sent successfully! We'll get back to you soon.
+                      </span>
                     </div>
                   )}
 
@@ -177,5 +227,5 @@ export function Contact() {
         </div>
       </div>
     </div>
-  );
+  )
 }

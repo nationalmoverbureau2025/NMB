@@ -70,8 +70,6 @@ serve(async (req) => {
       productName = 'Single Report'
     } else if (productType === 'reports_bundle') {
       productName = '3 Reports Bundle'
-    } else if (productType === 'price_monthly_subscription') {
-      productName = 'Monthly Subscription'
     }
     // Get user ID from Stripe customer metadata
     let userId = null
@@ -79,7 +77,19 @@ serve(async (req) => {
       const customer = await stripe.customers.retrieve(customerId)
       userId = customer.metadata?.user_id
     }
-
+    // If we have a user ID, update their subscription status
+    // if (userId && productType === 'subscription') {
+    //   await supabase.from('user_subscriptions').upsert({
+    //     user_id: userId,
+    //     stripe_customer_id: customerId,
+    //     stripe_subscription_id: session.subscription?.id,
+    //     status: 'active',
+    //     plan_type: 'unlimited',
+    //     current_period_end: new Date(
+    //       Date.now() + 30 * 24 * 60 * 60 * 1000
+    //     ).toISOString(),
+    //   });
+    // }
     if (userId) {
       const credits =
         productType === 'price_monthly_subscription'
@@ -121,6 +131,7 @@ serve(async (req) => {
           )
         }
       } else {
+        // Create new record
         // Create new record
         try {
           console.log('Creating new customer_credits record with data:', {

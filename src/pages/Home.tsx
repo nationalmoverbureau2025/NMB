@@ -58,19 +58,16 @@ export function Home() {
             <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full mb-6">
               <AlertTriangle className="w-4 h-4" />
               <span className="text-sm font-medium">
-                Moving scams are up 250% in 2025
+                Verified: Moving scams surged 250% in 2025. Get protected—run
+                your free scan now.
               </span>
             </div>
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              The Most Comprehensive Moving Company Verification System
+              The Only Moving Company Verification System
             </h1>
             <p className="text-xl text-gray-600 mb-8">
-              Access exclusive data from{' '}
-              <span className="font-semibold text-blue-900">
-                FMCSA, DOT, BBB, and State Records
-              </span>{' '}
-              combined with advanced AI analysis to verify any moving company
-              instantly.
+              Built to expose fake reviews, hidden DBAs, and scam brokers using
+              real-time data and advanced AI.
             </p>
           </div>
 
@@ -124,7 +121,7 @@ export function Home() {
             </Link>
             <Link to="/signup">
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Get you free report
+                Get your free report
               </Button>
             </Link>
           </div>

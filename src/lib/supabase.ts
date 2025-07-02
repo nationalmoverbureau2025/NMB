@@ -1,8 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
 
 // Get environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = 'https://jvmgjdhsrautecchxezp.supabase.co'
+const supabaseAnonKey =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2bWdqZGhzcmF1dGVjY2h4ZXpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAxNTU5ODMsImV4cCI6MjA1NTczMTk4M30.IRa15knRES5VLuP9naqboaWBydW9o0NnyliKOYeSi94'
 
 // Helper to check if Supabase is properly configured
 export function isSupabaseConfigured(): boolean {

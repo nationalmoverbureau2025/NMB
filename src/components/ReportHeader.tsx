@@ -1,9 +1,9 @@
-import { BadgeCheck, Clock, Scale, Shield } from 'lucide-react';
+import { BadgeCheck, Clock, Scale, Shield } from 'lucide-react'
 
 type Props = {
-  id: string;
-  created_at: string;
-};
+  id: string
+  created_at: string
+}
 
 export const ReportHeader = ({ id, created_at }: Props) => (
   <div className="bg-gradient-to-b from-blue-900 to-blue-800 text-white py-6 md:py-8 border-b border-blue-700">
@@ -18,7 +18,7 @@ export const ReportHeader = ({ id, created_at }: Props) => (
               Official National Mover Bureau Report
             </h1>
             <p className="text-sm md:text-base text-blue-200">
-              National Mover bureau Verification System
+              National mover bureau Verification System
             </p>
           </div>
         </div>
@@ -51,4 +51,4 @@ export const ReportHeader = ({ id, created_at }: Props) => (
       </div>
     </div>
   </div>
-);
+)

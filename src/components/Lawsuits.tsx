@@ -1,13 +1,13 @@
-import { Scale } from 'lucide-react';
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { Scale } from 'lucide-react'
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const Lawsuits = ({
   lawsuits,
   isReportPending,
 }: {
-  lawsuits: ICompanyReport['lawsuits'];
-  isReportPending: boolean;
+  lawsuits: ICompanyReport['lawsuits']
+  isReportPending: boolean
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
     <h2 className="text-xl font-bold text-gray-900 mb-6">Legal History</h2>
@@ -56,4 +56,4 @@ export const Lawsuits = ({
       <p className="text-gray-600">No legal history on record</p>
     )}
   </div>
-);
+)

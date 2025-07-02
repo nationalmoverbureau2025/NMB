@@ -1,10 +1,12 @@
 import { loadStripe } from '@stripe/stripe-js'
 import { supabase } from './supabase'
 
+// Replace with your actual Stripe publishable key
+const STRIPE_PUBLISHABLE_KEY =
+  'pk_test_51OxYzLCkBJNwKOVOJUkZVVfhgHXATKdDlQlU7YXgvlKJlUMgGXmZ3LYZdcBGRQQBmxQJwRXQQZGwpFLlhKLGLnSX00oBfKWZtm'
+
 // Initialize Stripe
-export const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || ''
-)
+export const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 
 // Product definitions
 export const products = {
@@ -29,7 +31,7 @@ export const products = {
   monthlySubscription: {
     id: 'price_monthly_subscription',
     name: 'Monthly Subscription',
-    price: 8900, // in cents
+    price: 8900, // in centsAdd commentMore actions
     description: 'Monthly access to unlimited reports',
     recurring: {
       interval: 'month',

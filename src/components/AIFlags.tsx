@@ -1,12 +1,12 @@
-import { ICompanyReport } from '../lib/types';
-import { Spinner } from './Spinner';
+import { ICompanyReport } from '../lib/types'
+import { Spinner } from './Spinner'
 
 export const AIFlags = ({
   currentReport,
 }: {
-  currentReport: ICompanyReport;
+  currentReport: ICompanyReport
 }) => {
-  const isReportPending = currentReport?.status === 'in_progress';
+  const isReportPending = currentReport?.status === 'in_progress'
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
@@ -146,5 +146,5 @@ export const AIFlags = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
