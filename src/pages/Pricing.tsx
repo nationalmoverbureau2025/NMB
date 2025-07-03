@@ -26,7 +26,7 @@ const freePlans = [
   {
     name: '1 Free Report',
     price: 0,
-    description: 'Single company free discovery for new users.',
+    description: 'Single company discovery.',
     descr:
       'Compare With Confidence. Most people compare 3 to 6 moving companies - get your first one verified free.',
     popular: false,
@@ -60,7 +60,7 @@ const primaryPlans = [
     price: 34,
     description: "Perfect if you're only checking one company",
     descr:
-      'Compare With Confidence. Most people compare 3 to 6 moving companies - get your first one verified free.',
+      'Compare With Confidence. Most people compare 3 to 6 moving companies.',
     popular: false,
     features: [
       'Full company background check',
@@ -77,6 +77,7 @@ const primaryPlans = [
       'Sentiment analysis & manipulation detection',
       'Cross-platform review verification',
       'Downloadable PDF report',
+      'Email support',
     ],
     priceId: products.singleReport.id,
     buttonText: 'Check Your Mover Now',
@@ -84,9 +85,9 @@ const primaryPlans = [
   {
     name: 'Unlimited Reports',
     price: 89,
-    description: '30-Day Full Access for professional work',
+    description: '30-Day Access',
     descr:
-      'Compare With Confidence. Most people compare 3 to 6 moving companies - get your first one verified free.',
+      'Compare With Confidence. Most people compare 3 to 6 moving companies.',
     subtitle: 'One-time payment',
     popular: true,
     features: [
@@ -108,30 +109,6 @@ const primaryPlans = [
       'Priority email support',
     ],
     priceId: products.monthlySubscription.id,
-    buttonText: 'Check Your Mover Now',
-  },
-]
-
-const secondaryPlans = [
-  {
-    name: 'Single report',
-    price: 34,
-    description: "Perfect if you're only checking one company",
-    popular: false,
-    features: [
-      'Full company background check',
-      'Authority Registration verification',
-      'Authority Status confirmation',
-      'Insurance Coverage analysis',
-      'Authorized Cargo Types review',
-      'Legal History investigation',
-      'Customer Reviews Analysis',
-      'AI Suspicious Activity Flags',
-      'Red Flags Analysis',
-      'Advanced fake review detection',
-      'Downloadable PDF report',
-    ],
-    priceId: products.singleReport.id,
     buttonText: 'Check Your Mover Now',
   },
 ]
@@ -289,14 +266,18 @@ export function Pricing() {
                 ring-2 ring-blue-600
                 `}
               >
-                <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium h-[36px]">
+                <div
+                  className={`${
+                    plan.popular ? 'bg-blue-600' : 'bg-white'
+                  } text-white text-center py-2 text-sm font-medium h-[36px]`}
+                >
                   {plan.popular ? 'Most Popular' : ' '}
                 </div>
 
                 <div className="flex flex-col justify-between p-6 h-[97%]">
                   {/* Tagline at the top */}
                   <div>
-                    <div className="text-center mb-6">
+                    <div className="text-center mb-6 grid grid-cols-1 gap-2 price-top-content-wrap">
                       <p className="text-gray-600 text-sm mb-4">
                         {plan.descr ||
                           'Most people compare 3 to 6 different moving companies.'}

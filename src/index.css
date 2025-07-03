@@ -5,3 +5,11 @@
 html {
   scroll-behavior: smooth;
 }
+
+.price-top-content-wrap {
+  grid-template-rows: minmax(60px, 80px) minmax(30px, 50px) minmax(42px, 54px) 1fr;
+
+  @media(max-width: 767px) {
+    grid-template-rows: minmax(60px, 80px) minmax(30px, 42px) minmax(42px, 54px) 1fr;
+  }
+}
