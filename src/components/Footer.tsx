@@ -64,7 +64,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/verify"
+                  to="/search"
                   className="text-gray-600 hover:text-blue-900"
                 >
                   License Verification
