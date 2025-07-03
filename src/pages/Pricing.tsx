@@ -29,7 +29,7 @@ const freePlans = [
     description: 'Single company free discovery for new users.',
     descr:
       'Compare With Confidence. Most people compare 3 to 6 moving companies - get your first one verified free.',
-    popular: true,
+    popular: false,
     subtitle: 'One-time free report for new users.',
     features: [
       'Full company background check',
@@ -61,7 +61,7 @@ const primaryPlans = [
     description: "Perfect if you're only checking one company",
     descr:
       'Compare With Confidence. Most people compare 3 to 6 moving companies - get your first one verified free.',
-    popular: true,
+    popular: false,
     features: [
       'Full company background check',
       'Authority Registration verification',
@@ -286,15 +286,12 @@ export function Pricing() {
               <div
                 key={plan.name}
                 className={`bg-white rounded-lg shadow-md overflow-hidden
-                
-                  ${plan.popular ? 'ring-2 ring-blue-600' : ''}
+                ring-2 ring-blue-600
                 `}
               >
-                {plan.popular && (
-                  <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium">
-                    Most Popular
-                  </div>
-                )}
+                <div className="bg-blue-600 text-white text-center py-2 text-sm font-medium h-[36px]">
+                  {plan.popular ? 'Most Popular' : ' '}
+                </div>
 
                 <div className="flex flex-col justify-between p-6 h-[97%]">
                   {/* Tagline at the top */}
@@ -345,14 +342,7 @@ export function Pricing() {
                   </div>
 
                   {plan.priceId ? (
-                    <CheckoutButton
-                      priceId={plan.priceId}
-                      className={
-                        plan.popular
-                          ? 'w-full'
-                          : 'w-full bg-white text-blue-900 border-blue-900 hover:bg-blue-50'
-                      }
-                    >
+                    <CheckoutButton priceId={plan.priceId} className="w-full">
                       {plan.buttonText}
                     </CheckoutButton>
                   ) : (
