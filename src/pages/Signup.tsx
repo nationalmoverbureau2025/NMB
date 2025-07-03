@@ -1,8 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { AuthForm } from '../components/AuthForm'
+import { useLocation } from 'react-router-dom'
 
 export function Signup() {
+  const location = useLocation()
+  const urlSearchParams = new URLSearchParams(location.search)
+  const companyDot = urlSearchParams.get('companyDot')
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-8">
@@ -19,7 +24,9 @@ export function Signup() {
       <p className="mt-6 text-center text-sm text-gray-600">
         Already have an account?{' '}
         <Link
-          to="/login"
+          to={`/login${
+            companyDot ? `?redirect=search&companyDot=${companyDot}` : ''
+          }`}
           className="text-blue-600 hover:text-blue-500 font-medium"
         >
           Log in

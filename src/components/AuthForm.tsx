@@ -23,6 +23,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   // Check for redirect parameter
   const searchParams = new URLSearchParams(location.search)
   const redirectPath = searchParams.get('redirect')
+  const companyDot = searchParams.get('companyDot')
 
   useEffect(() => {
     // Reset error when mode changes
@@ -63,7 +64,11 @@ export function AuthForm({ mode }: AuthFormProps) {
 
     try {
       if (mode === 'signup') {
-        const { error: signupError, data } = await signup(email, password)
+        localStorage.setItem('companyDot', companyDot || '')
+        const { error: signupError, data } = await signup({
+          email,
+          password,
+        })
 
         if (signupError) {
           if (signupError.message?.includes('already registered')) {
@@ -111,7 +116,6 @@ export function AuthForm({ mode }: AuthFormProps) {
             }
           }
           if (redirectPath === 'search') {
-            const companyDot = searchParams.get('companyDot')
             navigate(`/search?companyDot=${companyDot}`)
             return
           }

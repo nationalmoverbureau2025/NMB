@@ -21,7 +21,7 @@ export const Results = ({ results }: { results: SearchResult[] }) => {
     // Check if user is authenticated
     if (!isAuthenticated || !user) {
       // Redirect to login with return path
-      navigate(`/login?redirect=search&companyDot=${company.dot}`)
+      navigate(`/signup?redirect=search&companyDot=${company.dot}`)
       return
     }
 

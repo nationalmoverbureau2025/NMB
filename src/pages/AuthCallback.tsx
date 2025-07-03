@@ -70,9 +70,12 @@ export function AuthCallback() {
 
         // Check if we need to redirect to checkout
         const savedPriceId = localStorage.getItem('checkoutPriceId')
+        const companyDot = localStorage.getItem('companyDot')
         if (savedPriceId) {
           localStorage.removeItem('checkoutPriceId') // Clear it after use
           navigate('/pricing')
+        } else if (companyDot) {
+          navigate(`/search?companyDot=${companyDot}`)
         } else {
           navigate('/dashboard')
         }

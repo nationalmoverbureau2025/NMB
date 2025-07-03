@@ -128,7 +128,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }
 
-  const signup = async (email: string, password: string) => {
+  const signup = async ({
+    email,
+    password,
+  }: {
+    email: string
+    password: string
+  }) => {
     try {
       // Real signup with Supabase
       const { error, data } = await supabase.auth.signUp({
