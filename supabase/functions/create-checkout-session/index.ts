@@ -31,7 +31,7 @@ const PRICE_LOOKUP = {
   },
   price_monthly_subscription: {
     type: 'price_monthly_subscription',
-    name: 'Monthly Subscription',
+    name: 'Unlimited access - one-time payment',
     price: 8900,
     description: 'Monthly access to unlimited reports',
   },
@@ -44,8 +44,14 @@ serve(async (req) => {
     })
   }
   try {
-    const { priceId, customerId, successUrl, cancelUrl, companyDot } =
-      await req.json()
+    const {
+      priceId,
+      customerId,
+      successUrl,
+      cancelUrl,
+      companyDot,
+      voucherCode,
+    } = await req.json()
     // Validate required parameters
     if (!priceId || !successUrl || !cancelUrl) {
       return new Response(
@@ -138,6 +144,7 @@ serve(async (req) => {
         companyDot ? `&companyDot=${companyDot}` : ''
       }`,
       cancel_url: cancelUrl,
+      discounts: [{ coupon: voucherCode }],
       metadata: {
         product_type: priceDetails.type,
         user_id: customerId,

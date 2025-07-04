@@ -18,11 +18,11 @@ export function RefreshPaymentButton({ companyDot }: CheckoutButtonProps) {
 
     try {
       // Create checkout session
-      const { url } = await createCheckoutSession(
-        'refresh_report',
-        user.id,
-        companyDot
-      )
+      const { url } = await createCheckoutSession({
+        priceId: 'refresh_report',
+        customerId: user.id,
+        companyDot,
+      })
 
       // Redirect to Stripe Checkout
       if (url) {

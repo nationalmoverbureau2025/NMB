@@ -37,11 +37,17 @@ export const products = {
 }
 
 // Create a checkout session
-export const createCheckoutSession = async (
-  priceId: string,
-  customerId?: string,
+export const createCheckoutSession = async ({
+  priceId,
+  customerId,
+  companyDot,
+  voucherCode,
+}: {
+  priceId: string
+  customerId?: string
   companyDot?: number
-) => {
+  voucherCode?: string
+}) => {
   try {
     const { data, error } = await supabase.functions.invoke(
       'create-checkout-session',
@@ -49,6 +55,7 @@ export const createCheckoutSession = async (
         body: {
           priceId,
           customerId,
+          voucherCode,
           successUrl: `${window.location.origin}/checkout/success`,
           cancelUrl: `${window.location.origin}/pricing`,
           companyDot,
