@@ -144,7 +144,7 @@ serve(async (req) => {
         companyDot ? `&companyDot=${companyDot}` : ''
       }`,
       cancel_url: cancelUrl,
-      discounts: [{ coupon: voucherCode }],
+      ...(voucherCode ? { discounts: [{ coupon: voucherCode }] } : {}),
       metadata: {
         product_type: priceDetails.type,
         user_id: customerId,

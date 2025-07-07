@@ -1,4 +1,4 @@
-import { FileText } from 'lucide-react'
+
 import { ICompanyReport } from '../lib/types'
 import { Spinner } from './Spinner'
 
@@ -9,25 +9,27 @@ export const AuthorityRegistration = ({
   authority_registration_dates: ICompanyReport['authority_registration_dates']
   isReportPending: boolean
 }) => (
-  <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
-    <h2 className="text-xl font-bold text-gray-900 mb-6">
-      Authority Registration
-    </h2>
+  <div className="mb-8">
+    <h4 className="text-lg font-bold text-gray-900 mb-4">
+      Registration History
+    </h4>
     {authority_registration_dates?.length > 0 ? (
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="space-y-3">
         {authority_registration_dates.map((auth, index) => (
           <div
             key={index}
-            className="flex items-center justify-between p-3 bg-gray-50 rounded-md"
+            className="bg-blue-50 border-2 border-blue-200 p-4 rounded-lg"
           >
-            <div className="flex items-center gap-3">
-              <FileText className="w-5 h-5 text-blue-600" />
+            <div className="flex items-center justify-between">
               <div>
-                <div className="font-medium text-gray-900">{auth.type}</div>
+                <div className="font-bold text-gray-900">{auth.type}</div>
                 <div className="text-sm text-gray-600">
                   Registered: {auth.date}
                 </div>
               </div>
+              <span className="bg-blue-100 border border-blue-300 px-3 py-1 rounded text-sm font-bold text-blue-800">
+                REGISTERED
+              </span>
             </div>
           </div>
         ))}

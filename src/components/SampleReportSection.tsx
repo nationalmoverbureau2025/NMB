@@ -6,7 +6,6 @@ import { AIFlags } from './AIFlags'
 import { ReviewRating } from './ReviewRating'
 import { Lawsuits } from './Lawsuits'
 import { CompliantCounts } from './CompliantCounts'
-import { CargoTypes } from './CargoTypes'
 import { AuthorityStatus } from './AuthorityStatus'
 import { Insurance } from './Insurance'
 import { AuthorityRegistration } from './AuthorityRegistration'
@@ -14,6 +13,8 @@ import { CompanyOwners } from './CompanyOwners'
 import { DbaNames } from './DbaNames'
 import { CompanyOverview } from './CompanyOverview'
 import { ICompanyReport } from '../lib/types'
+import { ReportHeaderNew } from './ReportHeaderNew'
+import { CompanyInformation } from './CompanyInformation'
 
 const currentReport: ICompanyReport = {
   user_id: 'abc921ab-c256-4312-8b2c-a018ca6ad801',
@@ -228,57 +229,104 @@ export const SampleReportSection = () => (
           </p>
         </div>
         <div className="container mx-auto px-4 py-6 md:py-8">
-          <div className="max-w-5xl mx-auto space-y-8">
-            <CompanyOverview currentReport={currentReport} />
+          <div className="bg-white border-4 border-gray-300 rounded-xl overflow-hidden max-w-5xl mx-auto shadow-2xl">
+            <ReportHeaderNew currentReport={currentReport} />
+            <div className="px-8 py-8">
+              <CompanyOverview currentReport={currentReport} />
+              <div className="space-y-12">
+                <section>
+                  <div className="border-b-4 border-gray-900 pb-3 mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+                      1. COMPANY INFORMATION & CONTACT DETAILS
+                    </h3>
+                  </div>
+                  <CompanyInformation currentReport={currentReport} />
+                  <DbaNames
+                    dba_names={currentReport?.dba_names}
+                    isReportPending={isReportPending}
+                  />
 
-            <DbaNames
-              dba_names={currentReport?.dba_names}
-              isReportPending={isReportPending}
-            />
+                  <CompanyOwners
+                    owners={currentReport?.owners}
+                    isReportPending={isReportPending}
+                  />
+                </section>
 
-            <CompanyOwners
-              owners={currentReport?.owners}
-              isReportPending={isReportPending}
-            />
+                <section>
+                  <div className="border-b-4 border-gray-900 pb-3 mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+                      2. AUTHORITY & REGISTRATION
+                    </h3>
+                  </div>
+                  <AuthorityRegistration
+                    authority_registration_dates={
+                      currentReport?.authority_registration_dates
+                    }
+                    isReportPending={isReportPending}
+                  />
 
-            <AuthorityRegistration
-              authority_registration_dates={
-                currentReport?.authority_registration_dates
-              }
-              isReportPending={isReportPending}
-            />
+                  <AuthorityStatus
+                    authority_statuses={currentReport?.authority_statuses}
+                    isReportPending={isReportPending}
+                  />
 
-            <AuthorityStatus
-              authority_statuses={currentReport?.authority_statuses}
-              isReportPending={isReportPending}
-            />
+                  <Insurance
+                    insurance={currentReport?.insurance}
+                    isReportPending={isReportPending}
+                  />
+                </section>
 
-            <Insurance
-              insurance={currentReport?.insurance}
-              isReportPending={isReportPending}
-            />
+                {/* <CargoTypes
+                  cargo_types={currentReport?.cargo_types}
+                  isReportPending={isReportPending}
+                /> */}
+                <section>
+                  <div className="border-b-4 border-gray-900 pb-3 mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+                      3. COMPLAINT & LEGAL HISTORY
+                    </h3>
+                  </div>
 
-            <CargoTypes
-              cargo_types={currentReport?.cargo_types}
-              isReportPending={isReportPending}
-            />
+                  <CompliantCounts
+                    complaint_counts={currentReport?.complaint_counts}
+                    isReportPending={isReportPending}
+                  />
 
-            <CompliantCounts
-              complaint_counts={currentReport?.complaint_counts}
-              isReportPending={isReportPending}
-            />
+                  <Lawsuits
+                    lawsuits={currentReport?.lawsuits}
+                    isReportPending={isReportPending}
+                  />
+                </section>
+                <section>
+                  <div className="border-b-4 border-gray-900 pb-3 mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+                      4. CUSTOMER REVIEWS ANALYSIS
+                    </h3>
+                  </div>
 
-            <Lawsuits
-              lawsuits={currentReport?.lawsuits}
-              isReportPending={isReportPending}
-            />
+                  <ReviewRating currentReport={currentReport} />
+                </section>
+                <section>
+                  <div className="border-b-4 border-gray-900 pb-3 mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+                      5. AI SUSPICIOUS ACTIVITY DETECTION
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <AIFlags currentReport={currentReport} />
+                  </div>
+                </section>
+                <section>
+                  <div className="border-b-4 border-gray-900 pb-3 mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+                      6. RISK FACTORS ANALYSIS
+                    </h3>
+                  </div>
 
-            <ReviewRating currentReport={currentReport} />
-
-            <AIFlags currentReport={currentReport} />
-
-            <RedFlags currentReport={currentReport} />
-
+                  <RedFlags currentReport={currentReport} />
+                </section>
+              </div>
+            </div>
             {/* Report Footer */}
             <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
@@ -300,12 +348,59 @@ export const SampleReportSection = () => (
           </div>
         </div>
         {/* Report Preview Footer */}
-        <div className="bg-gray-50 p-6 text-center">
-          <p className="text-gray-600 mb-4">
-            This is a preview of our comprehensive report
+        <div className="border-t-4 border-gray-900 pt-8 mt-16">
+          <div className="bg-gray-50 border-2 border-gray-200 p-6 rounded-lg">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-gray-900">
+                    NATIONAL MOVER BUREAU
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Official Moving Company Verification System
+                  </div>
+                </div>
+              </div>
+              <div className="text-right text-sm text-gray-600">
+                <div className="font-mono font-bold">
+                  Report ID: {currentReport?.id?.split('-')[0]}
+                </div>
+                <div>Generated: {currentReport?.created_at?.slice(0, 10)}</div>
+                <div>© {new Date().getFullYear()} National Mover Bureau</div>
+              </div>
+            </div>
+
+            <div className="border-t border-gray-300 pt-4">
+              <div className="text-center text-xs text-gray-600">
+                <p>
+                  <strong>OFFICIAL VERIFICATION REPORT:</strong> This is an
+                  official verification report with comprehensive analysis
+                  including all available data fields, AI-powered insights, and
+                  risk assessment. All data is sourced from federal and state
+                  records.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-blue-900 text-white p-8 text-center rounded-xl mt-8">
+          <h3 className="text-2xl font-bold mb-4">
+            Get Complete Access to All Report Features
+          </h3>
+          <p className="text-blue-200 mb-6 text-lg">
+            This preview shows the comprehensive structure and data included in
+            our official reports
           </p>
           <Link to="/signup">
-            <Button>Get Full Report Access</Button>
+            <Button
+              className="bg-white text-blue-900 hover:bg-blue-50"
+              size="lg"
+            >
+              Get Full Report Access
+            </Button>
           </Link>
         </div>
       </div>

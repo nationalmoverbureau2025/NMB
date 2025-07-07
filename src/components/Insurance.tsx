@@ -9,37 +9,33 @@ export const Insurance = ({
   insurance: ICompanyReport['insurance']
   isReportPending: boolean
 }) => (
-  <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
-    <h2 className="text-xl font-bold text-gray-900 mb-6">Insurance Coverage</h2>
+  <div>
+    <h4 className="text-lg font-bold text-gray-900 mb-4">Insurance Coverage</h4>
     {insurance?.length > 0 ? (
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="space-y-3">
         {insurance.map((ins, index) => (
-          <div key={index} className="p-4 bg-gray-50 rounded-lg">
-            <div className="flex items-center gap-3 mb-3">
-              <Lock className="w-5 h-5 text-blue-600" />
-              <h4 className="font-medium text-gray-900 capitalize">
-                {ins.type}
-              </h4>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Status</span>
-                <span
-                  className={`font-medium capitalize ${
-                    ins.status?.toLowerCase() === 'active'
-                      ? 'text-green-600'
-                      : 'text-red-600'
-                  }`}
-                >
-                  {ins.status}
-                </span>
+          <div
+            key={index}
+            className="bg-gray-50 border-2 border-gray-200 p-4 rounded-lg"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-bold text-gray-900 capitalize">
+                  {ins.type}
+                </div>
+                <div className="text-sm text-gray-600">
+                  Expires: {ins.expiration_date}
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Expiration</span>
-                <span className="font-medium">
-                  {ins.expiration_date || 'N/A'}
-                </span>
-              </div>
+              <span
+                className={`px-4 py-2 rounded font-bold border-2 ${
+                  ins.status?.toLowerCase() === 'active'
+                    ? 'bg-green-100 text-green-800 border-green-300'
+                    : 'bg-red-100 text-red-800 border-red-300'
+                }`}
+              >
+                {ins.status}
+              </span>
             </div>
           </div>
         ))}

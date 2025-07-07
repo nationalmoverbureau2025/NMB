@@ -60,7 +60,7 @@ serve(async (req) => {
     }
     // Get product details
     const productType = session.metadata?.product_type || 'unknown'
-    const sessionUserId = session.metadata?.user_id || null
+
     const customerId = session.customer?.id
     const paymentIntent = session.payment_intent?.id || session.subscription?.id
     const amount = session.amount_total || 0

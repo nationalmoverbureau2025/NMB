@@ -8,30 +8,41 @@ export const DbaNames = ({
   dba_names: ICompanyReport['dba_names']
   isReportPending: boolean
 }) => (
-  <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
-    <h2 className="text-xl font-bold text-gray-900 mb-6">
+  <div className="mt-8">
+    <h4 className="text-lg font-bold text-gray-900 mb-4">
       Business Names (DBA)
-    </h2>
-    {dba_names && dba_names.length > 0 ? (
-      <div className="grid md:grid-cols-2 gap-4">
-        {dba_names.map((dba, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between p-3 bg-gray-50 rounded-md"
-          >
-            <div>
-              <div className="font-medium text-gray-900">{dba.name}</div>
-              <div className="text-sm text-gray-600">
-                From: {dba.start_date || 'N/A'} | To: {dba.end_date || 'N/A'}
+    </h4>
+    {dba_names?.length > 0 ? (
+      <div className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg">
+        <div className="space-y-3">
+          {dba_names?.map((dba, index) => (
+            <div
+              key={index}
+              className="bg-white border border-yellow-300 p-4 rounded"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-gray-900">{dba.name}</div>
+                  <div className="text-sm text-gray-600">
+                    {dba.start_date} - {dba.end_date || 'Current'}
+                  </div>
+                </div>
+                <span
+                  className={`px-2 py-1 rounded text-xs font-bold ${
+                    dba.end_date
+                      ? 'bg-gray-100 text-gray-800'
+                      : 'bg-green-100 text-green-800'
+                  }`}
+                >
+                  {dba.end_date ? 'INACTIVE' : 'ACTIVE'}
+                </span>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     ) : isReportPending ? (
       <Spinner />
-    ) : (
-      <p className="text-gray-600">No DBA names on record</p>
-    )}
+    ) : null}
   </div>
 )
