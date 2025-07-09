@@ -1,4 +1,3 @@
-import { BadgeCheck } from 'lucide-react'
 import { ICompanyReport } from '../lib/types'
 import { Spinner } from './Spinner'
 
@@ -9,40 +8,43 @@ export const AuthorityStatus = ({
   authority_statuses: ICompanyReport['authority_statuses']
   isReportPending: boolean
 }) => (
-  <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
-    <h2 className="text-xl font-bold text-gray-900 mb-6">Authority Status</h2>
-    {authority_statuses?.length > 0 ? (
-      <div className="grid md:grid-cols-2 gap-4">
-        {authority_statuses.map((status, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between p-3 bg-gray-50 rounded-md"
-          >
-            <div className="flex items-center gap-3">
-              <BadgeCheck className="w-5 h-5 text-blue-600" />
-              <div>
-                <div className="font-medium text-gray-900">{status.type}</div>
-                <div className="text-sm text-gray-600">
-                  Updated: {status.updated_at}
+  <div className="mb-8">
+    <h4 className="text-lg font-bold text-gray-900 mb-4">
+      Current Authority Status
+    </h4>
+    <div className="space-y-3">
+      {authority_statuses?.length > 0 ? (
+        <div className="grid md:grid-cols-2 gap-4">
+          {authority_statuses.map((status, index) => (
+            <div
+              key={index}
+              className="bg-gray-50 border-2 border-gray-200 p-4 rounded-lg"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-gray-900">{status.type}</div>
+                  <div className="text-sm text-gray-600">
+                    Updated: {status.updated_at}
+                  </div>
                 </div>
+                <span
+                  className={`px-4 py-2 rounded font-bold border-2 ${
+                    status.status?.toLowerCase() === 'active'
+                      ? 'bg-green-100 text-green-800 border-green-300'
+                      : 'bg-red-100 text-red-800 border-red-300'
+                  }`}
+                >
+                  {status.status}
+                </span>
               </div>
             </div>
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium text-center  ${
-                status.status?.toLowerCase() === 'active'
-                  ? 'bg-green-100 text-green-800'
-                  : 'bg-red-100 text-red-800'
-              }`}
-            >
-              {status.status}
-            </span>
-          </div>
-        ))}
-      </div>
-    ) : isReportPending ? (
-      <Spinner />
-    ) : (
-      <p className="text-gray-600">No authority status data available</p>
-    )}
+          ))}
+        </div>
+      ) : isReportPending ? (
+        <Spinner />
+      ) : (
+        <p className="text-gray-600">No authority status data available</p>
+      )}
+    </div>
   </div>
 )
