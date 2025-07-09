@@ -119,7 +119,7 @@ export const ReviewRating = ({
           </div>
         )} */}
 
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-green-50 border-2 border-green-200 p-6 rounded-lg text-center">
             <div className="text-3xl font-bold text-green-600 mb-2">
               {displayValueOrLoader(

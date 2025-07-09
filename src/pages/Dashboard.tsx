@@ -81,7 +81,7 @@ export function Dashboard() {
             National Mover Bureau Verification System - Authorized Access Portal
           </p>
         </div>
-        <div className="mt-6 md:mt-0 flex items-center gap-6">
+        <div className="mt-6 md:mt-0 flex items-center gap-6 flex-wrap">
           <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-sm font-semibold text-blue-900">
@@ -115,9 +115,9 @@ export function Dashboard() {
 
       {/* Official Status Banner */}
       <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white rounded-xl p-6 mb-8 shadow-2xl border-2 border-blue-700">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="w-16 min-w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
               <Shield className="w-8 h-8 text-blue-900" />
             </div>
             <div>
@@ -352,7 +352,7 @@ export function Dashboard() {
       {/* Reports List */}
       <div className="bg-white rounded-xl shadow-2xl border-2 border-gray-200 p-8 mb-12">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-900 to-blue-800 rounded-xl flex items-center justify-center shadow-lg border-2 border-blue-700">
+          <div className="w-16 min-w-16 h-16 bg-gradient-to-br from-blue-900 to-blue-800 rounded-xl flex items-center justify-center shadow-lg border-2 border-blue-700">
             <Shield className="w-8 h-8 text-white" />
           </div>
           <div>
@@ -461,7 +461,7 @@ export function Dashboard() {
                         'Unknown Company'}
                     </h3>
 
-                    <div className="grid grid-cols-3 gap-3 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                       <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-2 text-center shadow-sm">
                         <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
                           DOT

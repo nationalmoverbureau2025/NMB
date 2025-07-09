@@ -216,9 +216,9 @@ export function CompanyReport() {
         </div>
         <div className="border-t-4 border-gray-900 pt-8 mt-16">
           <div className="bg-gray-50 border-2 border-gray-200 p-6 rounded-lg">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center">
+            <div className="flex items-center justify-between mb-4 gap-4 flex-wrap">
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="w-12 min-w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center">
                   <Shield className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -230,7 +230,7 @@ export function CompanyReport() {
                   </div>
                 </div>
               </div>
-              <div className="text-right text-sm text-gray-600">
+              <div className="text-right text-sm text-gray-600 w-full">
                 <div className="font-mono font-bold">
                   Report ID: {currentReport?.id?.split('-')[0]}
                 </div>

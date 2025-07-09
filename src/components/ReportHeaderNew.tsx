@@ -9,9 +9,9 @@ export const ReportHeaderNew = ({
 }) => (
   <div className="bg-white border-b-4 border-blue-900">
     <div className="px-8 py-8">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-blue-900 rounded-lg flex items-center justify-center">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <div className="flex items-center gap-4 flex-wrap">
+          <div className="w-16 min-w-16 h-16 bg-blue-900 rounded-lg flex items-center justify-center">
             <Shield className="w-8 h-8 text-white" />
           </div>
           <div>

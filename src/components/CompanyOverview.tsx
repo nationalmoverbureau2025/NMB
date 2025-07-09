@@ -135,7 +135,7 @@ export const CompanyOverview = ({
       </div>
       {isBroker && (
         <div className="bg-red-50 border-4 border-red-300 p-8 mb-12 rounded-xl">
-          <div className="flex items-start gap-6">
+          <div className="flex items-start gap-6 flex-wrap">
             <AlertOctagon className="w-12 h-12 text-red-600 flex-shrink-0 mt-1" />
             <div>
               <h3 className="text-2xl font-bold text-red-900 mb-4">
