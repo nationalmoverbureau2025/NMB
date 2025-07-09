@@ -14,7 +14,6 @@ import { Privacy } from './pages/Privacy'
 import { Terms } from './pages/Terms'
 import { Disclaimer } from './pages/Disclaimer'
 import { Regulations } from './pages/Regulations'
-import { License } from './pages/License'
 import { CheckoutSuccess } from './pages/CheckoutSuccess'
 import { AuthCallback } from './pages/AuthCallback'
 import { ForgotPassword } from './pages/ForgotPassword'
@@ -58,7 +57,6 @@ function App() {
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/disclaimer" element={<Disclaimer />} />
                 <Route path="/regulations" element={<Regulations />} />
-                <Route path="/verify" element={<License />} />
                 <Route path="/checkout/success" element={<CheckoutSuccess />} />
                 <Route path="/auth/callback" element={<AuthCallback />} />
               </Routes>

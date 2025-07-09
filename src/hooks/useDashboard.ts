@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { ICompanyReport } from '../lib/types'
 import { hasMonthPassed } from '../lib/utils'
 
-interface IcompanyListReport
+export interface IcompanyListReport
   extends Pick<ICompanyReport, 'id' | 'status' | 'created_at' | 'expires_at'> {
   companies_perfsol: {
     company_name: string

@@ -1,6 +1,6 @@
-import { displayValueOrLoader } from '../lib/displayValueOrLoader'
-import { ICompanyReport } from '../lib/types'
-import { InlineSpinner } from './InlineSpinner'
+import { displayValueOrLoader } from '../../lib/displayValueOrLoader'
+import { ICompanyReport } from '../../lib/types'
+import { InlineSpinner } from '../InlineSpinner'
 
 export const CompanyInformation = ({
   currentReport,

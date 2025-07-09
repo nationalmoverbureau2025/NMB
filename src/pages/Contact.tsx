@@ -1,67 +1,11 @@
-import React, { useState } from 'react'
 import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react'
 import { Button } from '../components/Button'
-import { supabase } from '../lib/supabase'
+import { useContactForm } from '../hooks/useContactForm'
+import { Input } from '../components/ui/Input'
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-  const [status, setStatus] = useState<
-    'idle' | 'loading' | 'success' | 'error'
-  >('idle')
-  const [errorMessage, setErrorMessage] = useState('')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus('loading')
-    setErrorMessage('')
-
-    try {
-      // Save to database
-      const { error: dbError } = await supabase
-        .from('contact_messages')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-          },
-        ])
-
-      if (dbError) throw dbError
-
-      // Send email notification
-      const { error: emailError } = await supabase.functions.invoke(
-        'send-email',
-        {
-          body: {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-          },
-        }
-      )
-
-      if (emailError) throw emailError
-
-      setStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    } catch (err) {
-      setStatus('error')
-      setErrorMessage(
-        err instanceof Error
-          ? err.message
-          : 'Failed to send message. Please try again later.'
-      )
-      console.error('Contact form error:', err)
-    }
-  }
+  const { status, errorMessage, handleSubmit, formData, setFormData } =
+    useContactForm()
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -102,69 +46,41 @@ export function Contact() {
               <div className="bg-white rounded-lg shadow-md p-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        required
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            name: e.target.value,
-                          }))
-                        }
-                        className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            email: e.target.value,
-                          }))
-                        }
-                        className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
+                    <Input
+                      name="name"
+                      label="Name"
+                      value={formData.name}
+                      onChange={({ target: { value } }) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          name: value,
+                        }))
+                      }
+                    />
+                    <Input
+                      name="email"
+                      label="Email"
+                      value={formData.email}
+                      onChange={({ target: { value } }) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          email: value,
+                        }))
+                      }
+                    />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="subject"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      required
+                    <Input
+                      name="subject"
+                      label="Subject"
                       value={formData.subject}
-                      onChange={(e) =>
+                      onChange={({ target: { value } }) =>
                         setFormData((prev) => ({
                           ...prev,
-                          subject: e.target.value,
+                          subject: value,
                         }))
                       }
-                      className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 

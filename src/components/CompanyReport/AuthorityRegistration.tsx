@@ -1,6 +1,6 @@
 
-import { ICompanyReport } from '../lib/types'
-import { Spinner } from './Spinner'
+import { ICompanyReport } from '../../lib/types'
+import { Spinner } from '../Spinner'
 
 export const AuthorityRegistration = ({
   authority_registration_dates,

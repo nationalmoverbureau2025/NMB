@@ -1,5 +1,5 @@
 import { AlertTriangle } from 'lucide-react'
-import { ICompanyReport } from '../lib/types'
+import { ICompanyReport } from '../../lib/types'
 
 export const getStyles = (
   value: boolean | null | undefined,

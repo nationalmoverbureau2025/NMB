@@ -1,6 +1,6 @@
 import { AlertTriangle, Brain, CheckCircle, Clock } from 'lucide-react'
-import { ICompanyReport } from '../lib/types'
-import { Spinner } from './Spinner'
+import { ICompanyReport } from '../../lib/types'
+import { Spinner } from '../Spinner'
 
 export const AIFlags = ({
   currentReport,

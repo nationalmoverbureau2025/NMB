@@ -1,5 +1,5 @@
-import { ICompanyReport } from '../lib/types'
-import { Spinner } from './Spinner'
+import { ICompanyReport } from '../../lib/types'
+import { Spinner } from '../Spinner'
 
 export const AuthorityStatus = ({
   authority_statuses,

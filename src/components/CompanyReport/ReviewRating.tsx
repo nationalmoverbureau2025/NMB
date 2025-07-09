@@ -1,6 +1,6 @@
 import { Award, Brain, Star } from 'lucide-react'
-import { ICompanyReport } from '../lib/types'
-import { displayValueOrLoader } from '../lib/displayValueOrLoader'
+import { ICompanyReport } from '../../lib/types'
+import { displayValueOrLoader } from '../../lib/displayValueOrLoader'
 
 export const ReviewRating = ({
   currentReport,
